@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 /**
  * @date 2018/8/21
  * @user Qing
- * @name 角色类
+ * @name 权限类
  */
 class RuleController extends Controller{
     //权限列表
