@@ -25,7 +25,6 @@ class UserController extends Controller{
             return view('index.index',['data'=>$data]);
         }
     }
-
     //执行登录操作
     public function login_do(){
         // echo "执行登录操作";
@@ -43,7 +42,6 @@ class UserController extends Controller{
         }else{
             return ['msg'=>'用户名密码不匹配','code'=>2];
         }
-
     }
 
     //执行退出操作
