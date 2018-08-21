@@ -50,4 +50,7 @@ class RoleController extends Controller{
     public function set_rule_do(){
         echo "执行设置权限操作";
     }
+
+    //随便加的
+
 }
