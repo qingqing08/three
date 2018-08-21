@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+/* 首页 */
+Route::get('index' , 'Admin\UserController@index');
+Route::get('welcome' , 'Admin\UserController@welcome');
+
 /* RoleController---角色类 */
 //角色列表
 Route::get('role-list' , 'Admin\RoleController@role_list');

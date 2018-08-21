@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @date 2018/8/21
@@ -13,7 +14,18 @@ use App\Http\Controllers\Controller;
 class RuleController extends Controller{
     //权限列表
     public function rule_list(){
-        echo "权限列表";
+        $list = DB::table('rule')->where('status',1)->get();
+
+        foreach ($list as $key => $value) {
+            if ($value->parent_id != 0) {
+                $parent = DB::table('rule')->where('id' , $value->parent_id)->first();
+                $value->parent_id = $parent->rule_name;
+            } else {
+                $value->parent_id = "一级权限";
+            }
+        }
+        // dd($list);
+        return view('admin.rule.list' , ['title'=>'权限列表' , 'rule_list'=>$list]);
     }
 
     //权限添加页面
@@ -32,7 +44,7 @@ class RuleController extends Controller{
     }
 
     //执行修改权限操作
-    public functino rule_modify_do(){
+    public function rule_modify_do(){
         echo "修改权限操作";
     }
 

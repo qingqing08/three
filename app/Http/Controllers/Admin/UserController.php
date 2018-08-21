@@ -15,14 +15,30 @@ use Memcache;
  * @name 用户类
  */
 class UserController extends Controller{
+    //首页
+    public function index(){
+        $list = DB::table('rule')->where('parent_id' , 0)->get();
+        $list = json_decode($list);
+        foreach ($list as $key => $value) {
+            $data = DB::table('rule')->where('parent_id' , $value->id)->get();
+            $value->child = $data;
+        }
+        return view('admin.index' , ['title'=>'后台首页' , 'list'=>$list]);
+    }
+
+    //欢迎
+    public function welcome(){
+        return view('admin.welcome');
+    }
+
     //登录页面
     public function login(){
         //查看有没有session值 如果有则跳转首页 否则去登陆页面
         $data = session()->get('info');
         if(empty($value)){
-            return view('user.login');
+            return view('admin.login' , ['title'=>'后台登录']);
         }else{
-            return view('index.index',['data'=>$data]);
+            return view('admin.index',['data'=>$data]);
         }
     }
     //执行登录操作
@@ -30,17 +46,16 @@ class UserController extends Controller{
         // echo "执行登录操作";
         $account=input::post('account');
         $password=input::post('password');
-        $data=DB::table('staff')->where('account',$account)->first();
-        $newdata = json_decode($data,true);
-        if(empty($newdata)){
-            return ['msg'=>'用户名密码不匹配','code'=>2];
+        $data = DB::table('staff')->where('account',$account)->first();
+        if(empty($data)){
+            return ['msg'=>'用户名密码不匹配','code'=>0];
         }
-        if($data->pwd==md5($password)){
+        if($data->password==md5($password)){
             //登录成功将用户信息存session
             session()->put('info',$data);
             return ['msg'=>'登录成功','code'=>1];
         }else{
-            return ['msg'=>'用户名密码不匹配','code'=>2];
+            return ['msg'=>'用户名密码不匹配','code'=>0];
         }
     }
 
