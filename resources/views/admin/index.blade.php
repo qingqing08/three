@@ -1,7 +1,5 @@
 @extends('layouts.header')
 
-<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="/lib/layui/layui.js"></script>
 <body>
     <!-- 顶部开始 -->
     <div class="container">

@@ -1,8 +1,9 @@
 @extends('layouts.header')
+
 <body class="login-bg">
 
     <div class="login layui-anim layui-anim-up">
-        <div class="message">x-admin2.0-管理登录</div>
+        <div class="message">CRM登录</div>
         <div id="darkbannerwrap"></div>
 
         <form class="layui-form" >
@@ -15,9 +16,8 @@
             <hr class="hr20" >
         </form>
     </div>
-
-  <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
-  <script type="text/javascript" src="/lib/layui/layui.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui.js"></script>
     <script>
         $(function  () {
             layui.use('form', function(){
