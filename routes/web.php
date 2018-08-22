@@ -103,11 +103,11 @@ Route::get('order-delete' , 'Admin\OrderController@order_delete');
 
 /* DtypeController---跟单类型类 */
 //跟单类型列表
-Route::get('dtype-list' , 'Admin\OrderController@dtype_list');
+Route::get('dtype-list' , 'Admin\DtypeController@dtype_list');
 //跟单类型添加页面
-Route::get('dtype-add' , 'Admin\OrderController@dtype_add');
+Route::get('dtype-add' , 'Admin\DtypeController@dtype_add');
 //执行添加跟单类型
-Route::post('dtype-add-do' , 'Admin\OrderController@dtype_add_do');
+Route::post('dtype-add-do' , 'Admin\DtypeController@dtype_add_do');
 
 /* ScheduleController---跟单进度类 */
 //进度列表
