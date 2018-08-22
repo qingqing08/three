@@ -91,7 +91,7 @@ Route::get('order-list' , 'Admin\OrderController@order_list');
 //创建订单
 Route::get('create-order' , 'Admin\OrderController@create_order');
 //执行创建订单操作
-Route::post('create-order-do' , 'Admin\OrderController@create-order-do');
+Route::post('create-order-do' , 'Admin\OrderController@create_order_do');
 //订单详情
 Route::get('order-view' , 'Admin\OrderController@order_view');
 //修改订单页面
@@ -116,5 +116,8 @@ Route::get('schedule-list' , 'Admin\ScheduleController@schedule_list');
 Route::get('schedule-add' , 'Admin\ScheduleController@schedule_add');
 //执行添加进度
 Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
+
+/*  */
+
 
 /**/
