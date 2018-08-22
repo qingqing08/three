@@ -97,10 +97,24 @@ Route::get('order-view' , 'Admin\OrderController@order_view');
 //修改订单页面
 Route::get('order-modify' , 'Admin\OrderController@order_modify');
 //执行修改订单操作
-Route::get('order-modify-do' , 'Admin\OrderController@order_modify_do');
+Route::post('order-modify-do' , 'Admin\OrderController@order_modify_do');
 //删除订单
 Route::get('order-delete' , 'Admin\OrderController@order_delete');
 
+/* DtypeController---跟单类型类 */
+//跟单类型列表
+Route::get('dtype-list' , 'Admin\OrderController@dtype_list');
+//跟单类型添加页面
+Route::get('dtype-add' , 'Admin\OrderController@dtype_add');
+//执行添加跟单类型
+Route::post('dtype-add-do' , 'Admin\OrderController@dtype_add_do');
 
+/* ScheduleController---跟单进度类 */
+//进度列表
+Route::get('schedule-list' , 'Admin\ScheduleController@schedule_list');
+//添加进度页面
+Route::get('schedule-add' , 'Admin\ScheduleController@schedule_add');
+//执行添加进度
+Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 
 /**/
