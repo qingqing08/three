@@ -35,7 +35,7 @@ class UserController extends Controller{
     public function login(){
         //查看有没有session值 如果有则跳转首页 否则去登陆页面
         $data = session()->get('info');
-        if(empty($value)){
+        if(empty($data)){
             return view('admin.login' , ['title'=>'后台登录']);
         }else{
             return view('admin.index',['data'=>$data]);
@@ -64,9 +64,13 @@ class UserController extends Controller{
         echo "执行退出操作";
     }
 
+    //员工/业务员/管理员列表
+    public function user_list(){
+        return view('admin.user.list' , ['title'=>'管理员列表']);
+    }
     //添加员工/业务员/管理员页面
     public function user_add(){
-        echo "添加员工";
+        return view('admin.user.add');
     }
 
     //执行添加员工/业务员/管理员操作

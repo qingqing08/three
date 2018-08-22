@@ -100,6 +100,8 @@ Route::get('order-modify' , 'Admin\OrderController@order_modify');
 Route::post('order-modify-do' , 'Admin\OrderController@order_modify_do');
 //删除订单
 Route::get('order-delete' , 'Admin\OrderController@order_delete');
+//三级联动获取市县
+Route::post('get_city' , 'Admin\OrderController@city');
 
 /* DtypeController---跟单类型类 */
 //跟单类型列表

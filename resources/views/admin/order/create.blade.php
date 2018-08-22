@@ -1,9 +1,8 @@
 @include('layouts.header')
-
-
 <body>
 <div class="x-body">
     <form class="layui-form">
+      @csrf
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
                 <span class="x-red">*</span>用户名
@@ -11,6 +10,22 @@
             <div class="layui-input-inline">
                 <input type="text" id="username" name="username" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="username" class="layui-form-label">
+                <span class="x-red">*</span>省市区
+            </label>
+            <div class="layui-input-inline">
+                <select name="province" lay-filter="province" class="province">
+      							<option value="">请选择省</option>
+      					</select>
+      					<select name="city" lay-filter="city" disabled>
+                    <option value="">请选择市</option>
+                </select>
+      					<select name="area" lay-filter="county" disabled>
+                    <option value="">请选择县</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -118,8 +133,15 @@
 </div>
 </form>
 </div>
+<script type="text/javascript" src="address.js"></script>
 <script>
-    layui.use(['form','layer'], function(){
+    layui.config({
+			// base : "address.js" //address.js的路径
+		}).use([ 'layer', 'jquery', "address" ], function() {
+			var layer = layui.layer, $ = layui.jquery, address = layui.address();
+
+		});
+    layui.use(['form','layer','address'], function(){
         $ = layui.jquery;
         var form = layui.form
                 ,layer = layui.layer;
@@ -138,6 +160,50 @@
                 }
             }
         });
+
+        // form.on('select(province)', function (proData) {
+        //     var value = proData.value;
+      	// 		var token = $('input[name=_token]').val();
+        //     $.ajax({
+      	// 			url:'get_city',
+      	// 			type:'post',
+      	// 			data:{
+      	// 				_token:token,
+      	// 				parent_id:value,
+      	// 			},
+      	// 			cache:false,
+      	// 			async:false,
+      	// 			success:function (msg){
+      	// 				var str = "<option value='0'>请选择</option>";
+        //         $("select[name=city]").html(str+msg.data);
+        //         $("select[name=city]").removeAttr("disabled");
+        //         $("select[name=county]").html(str).removeAttr("disabled");
+        //         form.render();
+      	// 			}
+      	// 		})
+        // });
+        //
+        // form.on('select(city)', function (proData) {
+        //     var value = proData.value;
+      	// 		var token = $('input[name=_token]').val();
+        //     $.ajax({
+      	// 			url:'get_city',
+      	// 			type:'post',
+      	// 			data:{
+      	// 				_token:token,
+      	// 				parent_id:value,
+      	// 			},
+      	// 			cache:false,
+      	// 			async:false,
+      	// 			success:function (msg){
+      	// 				var str = "<option value='0'>请选择</option>";
+        //         $("select[name=county]").html(str+msg.data);
+        //         $("select[name=county]").removeAttr("disabled");
+        //         form.render();
+      	// 			}
+      	// 		})
+        // });
+
 
         //监听提交
         form.on('submit(add)', function(data){
