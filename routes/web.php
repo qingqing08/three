@@ -43,7 +43,7 @@ Route::get('rule-list' , 'Admin\RuleController@rule_list');
 //添加权限页面
 Route::get('rule-add' , 'Admin\RuleController@rule_add');
 //执行添加权限操作
-Route::get('rule-add-do' , 'Admin\RuleController@rule_add_do');
+Route::post('rule-add-do' , 'Admin\RuleController@rule_add_do');
 //修改权限页面
 Route::get('rule-modify' , 'Admin\RuleController@rule_modify');
 //执行修改权限操作
@@ -85,6 +85,21 @@ Route::post('customer-modify-do' , 'Admin\CustomerController@customer_modify_do'
 //删除客户
 Route::get('customer-delete' , 'Admin\CustomerController@customer_delete');
 
+/* OrderController---订单类 */
+//订单记录
+Route::get('order-list' , 'Admin\OrderController@order_list');
+//创建订单
+Route::get('create-order' , 'Admin\OrderController@create_order');
+//执行创建订单操作
+Route::post('create-order-do' , 'Admin\OrderController@create-order-do');
+//订单详情
+Route::get('order-view' , 'Admin\OrderController@order_view');
+//修改订单页面
+Route::get('order-modify' , 'Admin\OrderController@order_modify');
+//执行修改订单操作
+Route::get('order-modify-do' , 'Admin\OrderController@order_modify_do');
+//删除订单
+Route::get('order-delete' , 'Admin\OrderController@order_delete');
 
 
 

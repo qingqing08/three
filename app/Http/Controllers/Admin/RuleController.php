@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
 /**
  * @date 2018/8/21
@@ -30,12 +31,22 @@ class RuleController extends Controller{
 
     //权限添加页面
     public function rule_add(){
-        echo "权限添加";
+        $rule_list = DB::table('rule')->get();
+        return view('admin.rule.add' , ['title'=>'权限添加' , 'rule_list'=>$rule_list]);
     }
 
     //执行添加权限操作
     public function rule_add_do(){
-        echo "添加权限操作";
+        $data = Input::post();
+        // dd($data);
+        unset($data['_token']);
+        $data['status'] = 1;
+        $result = DB::table('rule')->insert($data);
+        if ($result) {
+            return ['code'=>1 , 'msg'=>'添加成功'];
+        } else {
+            return ['code'=>2 , 'msg'=>'添加失败'];
+        }
     }
 
     //权限修改页面
