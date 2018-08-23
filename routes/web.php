@@ -118,6 +118,8 @@ Route::get('schedule-list' , 'Admin\ScheduleController@schedule_list');
 Route::get('schedule-add' , 'Admin\ScheduleController@schedule_add');
 //执行添加进度
 Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
+//修改进度
+Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
 
 /*  */
 
