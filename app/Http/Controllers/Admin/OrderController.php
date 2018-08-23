@@ -57,5 +57,8 @@ class OrderController extends Controller
         }
     }
 
+    public function order_list(){
+    	
+    }
 
 }
