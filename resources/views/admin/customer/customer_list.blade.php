@@ -8,7 +8,7 @@
                         
                     <tbody>
                         <tr>
-                            <th>ID</th>
+                            <!-- <th>客户编号</th> -->
                             <th><b>客户名称</b></td>
                             <th><b>客户联系方式</b></td>
                             <th><b>省份</b></td>
@@ -26,7 +26,6 @@
                         </tr>
                         @foreach($data as $v)
                         <tr>
-                            <th style="font-size: 4px;">{{@$v->id}}</th>
                             <td style="font-size: 4px;">{{@$v->customer_name}}</td>
                             <td style="font-size: 4px;">{{@$v->mobile}}</td>
                             <td style="font-size: 4px;">{{@$v->province}}</td>
@@ -41,9 +40,9 @@
                             <td style="font-size: 4px;">{{@$v->main_project}}</td>
                             <td style="font-size: 4px;">{{@$v->remarks}}</td>
                             <td>
-                    <input class="layui-btn layui-btn-sm" type="button" value="编辑" name="">
-                    <br>
-                    <input style='margin-top:5px;' class="layui-btn layui-btn-sm" type="button" value="删除" name="">
+                            <button class="layui-btn layui-btn-sm" onclick="x_admin_show('修改客户信息','customer-modify?id={{@$v->id}}')">
+                                <i class="layui-icon"></i>修改</button><button class="layui-btn layui-btn-sm" onclick="('customer-delete?id={{@$v->id}}')"><i class="layui-icon">
+                                </i>删除</button>
                             </td>
                         </tr>
                         @endforeach
@@ -55,4 +54,4 @@
 
 <script type="text/javascript">
 
-        </script>
+</script>
