@@ -25,7 +25,7 @@
         <input type="hidden" name="id" value="{{$date -> id}}">
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
-                <span class="x-red">*</span>进度名称
+                <span class="x-red">*</span>类型名称
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="rule_name" name="name" required="" autocomplete="off" class="layui-input" value="{{$date -> name}}">
@@ -43,7 +43,7 @@
                 @else
                     <input type="checkbox" name="status" lay-skin="switch" value='0' lay-text="隐藏|显示" >
 
-                 @endif
+                @endif
             </div>
         </div>
         <div class="layui-form-item">
@@ -78,7 +78,7 @@
             //  alert(id)
             // return false;
             $.ajax({
-                url:"schedule-up-do",
+                url:"dtype-up-do",
                 type:"post",
                 dataType:"json",
                 data:{
@@ -92,7 +92,7 @@
                 success:function (data){
                     if (data.code == 1) {
                         layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                            location.href = "schedule-list";
+                            location.href = "dtype-list";
                         });
                     } else {
                         layer.msg(data.msg, {icon: data.code});

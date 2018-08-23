@@ -112,6 +112,10 @@ Route::get('dtype-list' , 'Admin\DtypeController@dtype_list');
 Route::get('dtype-add' , 'Admin\DtypeController@dtype_add');
 //执行添加跟单类型
 Route::post('dtype-add-do' , 'Admin\DtypeController@dtype_add_do');
+//修改进度
+Route::get('dtype-up' , 'Admin\DtypeController@dtype_up');
+//执行修改页
+Route::post('dtype-up-do' , 'Admin\DtypeController@dtype_up_do');
 
 /* ScheduleController---跟单进度类 */
 //进度列表
@@ -122,7 +126,8 @@ Route::get('schedule-add' , 'Admin\ScheduleController@schedule_add');
 Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 //修改进度
 Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
-
+//执行修改页
+Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
 /*  */
 
 

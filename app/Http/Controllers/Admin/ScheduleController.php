@@ -19,17 +19,30 @@ class ScheduleController extends Controller
         $name = Input::post('name');
         $status = Input::post('status');
         $c_time = time();
-        $res = DB::table('schedule') -> insert(['name' => $name , 'status' => $status , 'c_time' => $c_time]);
-        if($res){
-            return(['msg' => '添加成功' , 'code' => 1]);
+
+        //验证唯一
+        $only = DB::table('schedule') -> where(['name' => $name]) -> get();
+
+        if($only){
+
+            return (['msg' => '已存在' , 'code' => 3]);
+
         }else{
-            return(['msg' => '添加失败' , 'code' => 2]);
+
+            $res = DB::table('schedule') -> insert(['name' => $name , 'status' => $status , 'c_time' => $c_time]);
+            if($res){
+                return(['msg' => '添加成功' , 'code' => 1]);
+            }else{
+                return(['msg' => '添加失败' , 'code' => 2]);
+            }
         }
+
     }
 
     //进度类型展示
     public function schedule_list(){
-        $list = DB::table('schedule') -> get();
+        $list = DB::table('schedule') -> paginate(3);
+        //$num = count($list);
         return view('admin.schedule.list',['title' => '进度列表']) -> with('list',$list);
     }
 
@@ -37,10 +50,33 @@ class ScheduleController extends Controller
     public function schedule_up(){
         $id = Input::get('id');
         $date = DB::table('schedule') -> where('id',$id) -> first();
-        dd($date);
-        if($date){
-            view('admin.schedule.up' , ['title' => '编辑']) -> with('date',$date);
-        }
-
+        return view('admin.schedule.up' , ['title' => '编辑']) -> with('date',$date);
     }
+
+    //执行修改
+    public function schedule_up_do(){
+
+    $id = Input::post('id');
+    $name = Input::post('name');
+    $status = Input::post('status');
+
+    //验证唯一
+    $only = DB::table('schedule') -> where(['name' => $name , 'status' => $status]) -> first();
+
+        if($only != null){
+
+            return (['msg' => '已存在' , 'code' => 3]);
+
+        }else{
+
+            $res = DB::table('schedule') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
+
+            if($res){
+                return (['msg' => '编辑成功' , 'code' => 1]);
+            }else{
+                return (['msg' => '编辑失败','code' => 2]);
+            }
+        }
+    }
+
 }
