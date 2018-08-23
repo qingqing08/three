@@ -49,6 +49,7 @@ class OrderController extends Controller
     	$s_id=$arr2['id'];
     	$arr['s_id']=$s_id;
     	$arr['order_num']=date('YmdHis').rand(000000,999999);
+    	$arr['c_time']=time();
     	$res=DB::table('order')->insert($arr);
 		 if($res){
             return ['msg'=>'添加成功	','code'=>1];
@@ -56,9 +57,28 @@ class OrderController extends Controller
             return ['msg'=>'添加失败','code'=>0];
         }
     }
-
+    /** 订单展示 */
     public function order_list(){
-    	
+    	$arr=session()->get('info');
+    	$arr=get_object_vars($arr);
+    	$s_id=$arr['id'];
+    	$info=DB::table('order')
+    	->join('customer','customer.id','order.c_id')
+    	->where('s_id',$s_id)->get()->map(function ($value) {
+                return (array)$value;
+            })->toArray();
+    	// print_r($info);exit;
+    	return view('admin.order.order_list',['title'=>'订单列表','info'=>$info]);
     }
 
+    /** 订单删除 */
+    public function order_delete(){
+    	$id=input::get('id');
+    	$res=DB::table('order')->where('o_id',$id)->delete();
+    	if($res){
+            return ['msg'=>'删除成功	','code'=>1];
+        }else{
+            return ['msg'=>'删除失败','code'=>0];
+        }
+    }
 }
