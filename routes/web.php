@@ -35,7 +35,7 @@ Route::get('role-delete' , 'Admin\RoleController@role_delete');
 //设置权限页面
 Route::get('set-rule' , 'Admin\RoleController@set_rule');
 //执行设置权限操作
-Route::get('set-rule-do' , 'Admin\RoleController@set_rule_do');
+Route::post('set-rule-do' , 'Admin\RoleController@set_rule_do');
 
 /* RuleController---权限类 */
 //权限列表
@@ -68,6 +68,8 @@ Route::get('user-modify' , 'Admin\UserController@user_modify');
 Route::post('user-modify-do' , 'Admin\UserController@user_modify_do');
 //执行删除员工/业务员/管理员操作
 Route::get('user-delete' , 'Admin\UserController@user_delete');
+//员工/业务员/管理员列表
+Route::get('user-list' , 'Admin\UserController@user_list');
 
 /* CustomerController---客户类 */
 //客户列表
@@ -110,6 +112,10 @@ Route::get('dtype-list' , 'Admin\DtypeController@dtype_list');
 Route::get('dtype-add' , 'Admin\DtypeController@dtype_add');
 //执行添加跟单类型
 Route::post('dtype-add-do' , 'Admin\DtypeController@dtype_add_do');
+//修改进度
+Route::get('dtype-up' , 'Admin\DtypeController@dtype_up');
+//执行修改页
+Route::post('dtype-up-do' , 'Admin\DtypeController@dtype_up_do');
 
 /* ScheduleController---跟单进度类 */
 //进度列表
@@ -120,7 +126,8 @@ Route::get('schedule-add' , 'Admin\ScheduleController@schedule_add');
 Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 //修改进度
 Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
-
+//执行修改页
+Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
 /*  */
 
 

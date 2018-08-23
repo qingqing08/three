@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @date 2018/8/21
@@ -13,27 +15,62 @@ use App\Http\Controllers\Controller;
 class RoleController extends Controller{
     //角色列表
     public function role_list(){
-        echo "角色列表";
+        $list = DB::table('role')->get();
+        return view('admin.role.list' , ['title'=>'角色列表' , 'list'=>$list]);
     }
 
     //添加角色页面
     public function role_add(){
-        echo "添加角色";
+        return view('admin.role.add' , ['title'=>'添加角色']);
     }
 
     //执行添加角色操作
     public function role_add_do(){
-        echo "执行创建角色操作";
+        $data =Input::post();
+        unset($data['_token']);
+        $data['c_time'] = time();
+        if ($data['role_name'] == '') {
+            return ['msg'=>'角色名称不能为空' , 'code'=>0];
+        }
+
+        // dd($data);
+        $result = DB::table('role')->insert($data);
+        
+        if($result){
+            return ['msg'=>'添加成功','code'=>1];
+        } else {
+            return ['msg'=>'添加失败','code'=>2];
+        }
     }
 
     //角色修改页面
     public function role_modify(){
-        echo "角色修改页面";
+        $role_id = Input::get('role_id');
+        $role_info = DB::table('role')->where('id' , $role_id)->first();
+
+        return view('admin.role.modify' , ['title'=>'角色修改' , 'info'=>$role_info]);
     }
 
     //执行修改角色操作
     public function role_modify_do(){
-        echo "执行修改角色操作";
+        // dd(Input::post());
+        $data = Input::post();
+        $role_id = $data['role_id'];
+        $arr = [
+            'role_name'=>$data['role_name'],
+        ];
+
+        if (empty($role_id)) {
+            return ['msg'=>'修改失败' , 'code'=>2];
+        }
+        $result = DB::table('role')->where('id' , $role_id)->update($arr);
+
+        if ($result) {
+            return ['msg'=>'修改成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'修改失败' , 'code'=>2];
+        }
+
     }
 
     //删除角色
@@ -43,12 +80,44 @@ class RoleController extends Controller{
 
     //给角色设置权限页面
     public function set_rule(){
-        echo "设置权限";
+        $role_id = Input::get('role_id');
+        $role_info = DB::table('role')->where('id' , $role_id)->first();
+        $rule_list = DB::table('rule')->where('status' , 1)->get();
+        // dd($role_id);
+        return view('admin.role.set_rule' , ['title'=>'设置权限' , 'info'=>$role_info , 'rule_list'=>$rule_list]);
     }
 
     //执行设置权限操作
     public function set_rule_do(){
-        echo "执行设置权限操作";
+        $data = Input::post();
+        $check_rule = $data['check_rule'];
+
+        $check_rule = trim($check_rule , ',');
+        $check_rule = explode(',', $check_rule);
+
+
+        $no_check = $data['no_check'];
+
+        $no_check = trim($no_check , ',');
+
+        if ($no_check != '') {
+            DB::table('rule_role')->whereIn('rule_id' , $no_check)->delete();
+        }
+        
+        // dd(Input::post());
+        for ($i=0; $i < count($check_rule); $i++) {
+            $arr = [
+                'role_id'=>$data['role_id'],
+                'rule_id'=>$check_rule[$i],
+            ];
+            $res = DB::table('rule_role')->insert($arr);
+        }
+
+        if ($res) {
+            return ['msg'=>'设置成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'设置失败' , 'code'=>2];
+        }
     }
 
     //随便加的

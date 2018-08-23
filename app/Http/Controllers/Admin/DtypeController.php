@@ -22,26 +22,73 @@ class DtypeController extends Controller
         $status = input::post('status');
         $c_time = time();
 
-        $arr = [
-            'name' => $name,
-            'c_time' => $c_time,
-            'status' => $status
-        ];
+        //验证唯一
+        $only = DB::table('d_type') -> where(['name' => $name]) -> get();
 
-        $res = DB::table('d_type') -> insert($arr);
+        if($only){
 
-        if($res){
-            return (['msg' => '添加成功' , 'code' => 1]);
+            return (['msg' => '已存在' , 'code' => 3]);
+
         }else{
-            return (['msg' => '添加失败' , 'code' => 2]);
+            $arr = [
+                'name' => $name,
+                'c_time' => $c_time,
+                'status' => $status
+            ];
+
+            $res = DB::table('d_type') -> insert($arr);
+
+            if($res){
+                return (['msg' => '添加成功' , 'code' => 1]);
+            }else{
+                return (['msg' => '添加失败' , 'code' => 2]);
+            }
         }
+
     }
 
     //跟单类型列表
     public function dtype_list(){
 
-        $list = DB::table('d_type') -> get();
+        $list = DB::table('d_type') -> paginate(3);
 
         return view('admin.dtype.list' , ['title' => '跟单类型展示']) -> with('list',$list);
     }
+
+    //加载修改页面
+    public function dtype_up(){
+
+        $id = Input::get('id');
+
+        $date = DB::table('d_type') -> where ('id',$id) -> first();
+
+//        dd($date);
+        return view('admin.dtype.up' , ['title' => '编辑' , 'date'=>$date]);
+    }
+
+    //执行修改页面
+    public function dtype_up_do(){
+
+            $id = Input::post('id');
+            $name = Input::post('name');
+            $status = Input::post('status');
+
+            //验证唯一
+            $only = DB::table('d_type') -> where(['name' => $name , 'status' => $status]) -> first();
+            //dd($only);
+            if($only != null){
+
+                return (['msg' => '已存在' , 'code' => 3]);
+
+            }else{
+
+                $res = DB::table('d_type') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
+
+                if($res){
+                    return (['msg' => '编辑成功' , 'code' => 1]);
+                }else{
+                    return (['msg' => '编辑失败','code' => 2]);
+                }
+            }
+        }
 }

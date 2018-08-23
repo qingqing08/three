@@ -66,7 +66,23 @@ class UserController extends Controller{
 
     //员工/业务员/管理员列表
     public function user_list(){
-        return view('admin.user.list' , ['title'=>'管理员列表']);
+        $user_list = DB::table('staff')->get();
+        foreach ($user_list as $user) {
+            $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
+            // dd($staff_role);
+            if ($staff_role == null) {
+                $user->role = '没有设置角色';
+            } else {
+                $role = DB::table('role')->where('id' , $staff_role->role_id)->first();
+                $user->role = $role->role_name;
+            }
+            if ($user->c_time != '') {
+                $user->c_time = date("Y-m-d H:i:s" , $user->c_time);
+            }
+            
+        }
+        // dd($user_list);
+        return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list]);
     }
     //添加员工/业务员/管理员页面
     public function user_add(){

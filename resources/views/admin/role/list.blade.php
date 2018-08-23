@@ -1,4 +1,5 @@
 @include('layouts.header')
+
   <body>
     <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -21,7 +22,7 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加角色','role-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
       <table class="layui-table">
@@ -31,31 +32,38 @@
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>登录名</th>
-            <th>手机</th>
-            <th>角色</th>
-            <th>加入时间</th>
-            <th>状态</th>
+            <th>角色名</th>
+            <th>拥有权限规则</th>
+            <th>描述</th>
             <th>操作</th>
         </thead>
         <tbody>
-          @foreach($user_list as $user)
+          @foreach($list as $role)
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>{{$user->id}}</td>
-            <td>{{$user->name}}</td>
-            <td>{{$user->mobile}}</td>
-            <td>{{$user->role}}</td>
-            <td>{{$user->c_time}}</td>
-            <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+            <td>{{$role->id}}</td>
+            <td>{{$role->role_name}}</td>
+            <td>
+              @if($role->role_name == '超级管理员')
+                拥有全部权限
+              @else
+                ----
+              @endif
+            </td>
+            <td>
+              @if($role->role_name == '超级管理员')
+                拥有全部权限
+              @else
+                ----
+              @endif
+            </td>
             <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                <i class="layui-icon">&#xe601;</i>
+              <a title="设置权限"  onclick="x_admin_show('设置权限','set-rule?role_id={{$role->id}}')" href="javascript:;">
+                <i class="layui-icon">&#xe716;</i>
               </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','user-edit?user_id={{$user->id}}')" href="javascript:;">
+              <a title="编辑"  onclick="x_admin_show('编辑','role-modify?role_id={{$role->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
               <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -121,6 +129,9 @@
       function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
+              $.ajax({
+
+              })
               $(obj).parents("tr").remove();
               layer.msg('已删除!',{icon:1,time:1000});
           });
