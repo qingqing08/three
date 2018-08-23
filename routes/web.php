@@ -35,7 +35,7 @@ Route::get('role-delete' , 'Admin\RoleController@role_delete');
 //设置权限页面
 Route::get('set-rule' , 'Admin\RoleController@set_rule');
 //执行设置权限操作
-Route::get('set-rule-do' , 'Admin\RoleController@set_rule_do');
+Route::post('set-rule-do' , 'Admin\RoleController@set_rule_do');
 
 /* RuleController---权限类 */
 //权限列表
@@ -68,6 +68,8 @@ Route::get('user-modify' , 'Admin\UserController@user_modify');
 Route::post('user-modify-do' , 'Admin\UserController@user_modify_do');
 //执行删除员工/业务员/管理员操作
 Route::get('user-delete' , 'Admin\UserController@user_delete');
+//员工/业务员/管理员列表
+Route::get('user-list' , 'Admin\UserController@user_list');
 
 /* CustomerController---客户类 */
 //客户列表
