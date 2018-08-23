@@ -22,7 +22,7 @@
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：1条</span>
+        <span class="x-right" style="line-height:40px">共有数据：{{$num}}条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -70,14 +70,7 @@
         </tbody>
     </table>
     <div class="page">
-        <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
-            <a class="next" href="">&gt;&gt;</a>
-        </div>
+       {{$list -> links()}}
     </div>
 
 </div>
@@ -97,16 +90,7 @@
     });
     /* 编辑*/
     function x_admin_show(obj,id){
-        $.ajax({
-            url:'schedule-up',
-            type:'get',
-            datatype:'json',
-            data:{
-                'id':id
-            },success:function(data){
-                console.log(data)
-            }
-        })
+        window.location.href = 'schedule-up?id='+ id;
         }
 
     /*用户-停用*/

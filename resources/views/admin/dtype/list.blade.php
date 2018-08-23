@@ -58,7 +58,7 @@
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
                     </a>
-                    <a title="编辑"  onclick="x_admin_show('编辑','admin-edit.html')" href="javascript:;">
+                    <a title="编辑"  onclick="x_admin_show(this , {{$v -> id}})" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -71,12 +71,7 @@
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
-            <a class="next" href="">&gt;&gt;</a>
+            {{$list -> links()}}
         </div>
     </div>
 
@@ -95,6 +90,12 @@
             elem: '#end' //指定元素
         });
     });
+
+    /* 编辑*/
+    function x_admin_show(obj , id){
+
+        window.location.href = 'dtype-up?id='+ id;
+    }
 
     /*用户-停用*/
     function member_stop(obj,id){
