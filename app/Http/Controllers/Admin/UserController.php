@@ -38,7 +38,7 @@ class UserController extends Controller{
         if(empty($data)){
             return view('admin.login' , ['title'=>'后台登录']);
         }else{
-            return view('admin.index',['data'=>$data]);
+            return redirect('index');
         }
     }
     //执行登录操作
