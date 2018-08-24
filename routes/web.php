@@ -85,7 +85,7 @@ Route::get('customer-modify' , 'Admin\CustomerController@customer_modify');
 //执行编辑客户操作
 Route::post('customer-modify-do' , 'Admin\CustomerController@customer_modify_do');
 //删除客户
-Route::get('customer-delete' , 'Admin\CustomerController@customer_delete');
+Route::any('customer-delete' , 'Admin\CustomerController@customer_delete');
 
 /* OrderController---订单类 */
 //订单记录
@@ -131,4 +131,17 @@ Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
 /*  */
 
 
-/**/
+/*Documentary--跟单类*/
+//跟单列表
+Route::any('documentary-list' , 'Admin\DocumentaryController@documentary_list');
+//跟单添加
+Route::any('documentary-add' , 'Admin\DocumentaryController@documentary_add');
+//执行跟单
+Route::any('documentary-add-do' , 'Admin\DocumentaryController@documentary_add_do');
+//跟单修改
+Route::any('documentary-modify' , 'Admin\DocumentaryController@documentary_modify');
+//执行修改
+Route::any('documentary-modify-do' , 'Admin\DocumentaryController@documentary_modify_do');
+//删除
+Route::any('documentary-delete' , 'Admin\DocumentaryController@documentary_delete');
+

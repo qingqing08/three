@@ -16,7 +16,7 @@
                             <th><b>详细地址</b></td>
                             <th><b>备用联系方式</b></td>
                             <th><b>客户类型</b></td>
-                            <th><b>网络</b></td>
+                            <!-- <th><b>网络</b></td> -->
                             <th><b>客户级别</b></td>
                             <th><b>客户来源</b></td>
                             <th><b>其他联系方式</b></td>
@@ -33,7 +33,7 @@
                             <td style="font-size: 4px;">{{@$v->address}}</td>
                             <td style="font-size: 4px;">{{@$v->spare_mobile}}</td>
                             <td style="font-size: 4px;">{{@$v->type_name}}</td>
-                            <td style="font-size: 4px;">{{@$v->network}}</td>
+                            <!-- <td style="font-size: 4px;">{{@$v->network}}</td> -->
                             <td style="font-size: 4px;">{{@$v->level_name}}</td>
                             <td style="font-size: 4px;">{{@$v->customer_source}}</td>
                             <td style="font-size: 4px;">{{@$v->other_connections}}</td>
@@ -41,8 +41,12 @@
                             <td style="font-size: 4px;">{{@$v->remarks}}</td>
                             <td>
                             <button class="layui-btn layui-btn-sm" onclick="x_admin_show('修改客户信息','customer-modify?id={{@$v->id}}')">
-                                <i class="layui-icon"></i>修改</button><button class="layui-btn layui-btn-sm" onclick="('customer-delete?id={{@$v->id}}')"><i class="layui-icon">
-                                </i>删除</button>
+                                <i class="layui-icon"></i>修改</button>
+                                <br>
+                                <br>
+                                 <button class="layui-btn layui-btn-sm" 
+                                 onclick="del({{$v->id}})">
+                                <i class="layui-icon"></i>删除</button>
                             </td>
                         </tr>
                         @endforeach
@@ -53,5 +57,30 @@
 
 
 <script type="text/javascript">
+
+    function del(id){   
+     layui.use('layer', function(){
+  var layer = layui.layer;
+    $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+        });
+        $.ajax({
+            url:"customer-delete",
+            type:"post",
+            data:{id:id},
+            success:function(result){
+            if (result.code == 1) {
+              layer.msg(result.msg, {icon: result.code, time: 1500}, function () {
+                    window.location.reload();
+              });
+          } else {
+              layer.msg(result.msg, {icon: result.code});
+          }
+            }
+        })
+    });
+    }
+
+
 
 </script>

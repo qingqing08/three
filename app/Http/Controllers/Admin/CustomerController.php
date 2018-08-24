@@ -19,7 +19,14 @@ class CustomerController extends Controller{
   	public function customer_list(){
 
   	//查询用户表中的用户数据
-  		$data = DB::table('customer')
+      // $user = session()->get('info');
+      // $u_id=$user->id;
+      // $share = DB::table('customer_share')
+      // ->where(['staff_id'=>$u_id])
+      // ->get();
+      // $sharearr = json_decode($share,true);
+      $data = DB::table('customer')
+      // ->where(['add_man'=>$u_id])
   		->join('customer_level','customer.customer_level', '=', 'customer_level.level_id')
   		->join('customer_type','customer.customer_type', '=', 'customer_type.type_id')
   		->get();
@@ -99,7 +106,6 @@ class CustomerController extends Controller{
   	}
 //执行修改
   	public function customer_modify_do(){
-
   		$post=Input::post();
   		$id=$post['id'];
   		//取出来当前用户信息
@@ -129,13 +135,23 @@ class CustomerController extends Controller{
   	}
 //删除客户
   	public function customer_delete(){
-		$id=Input::get('id');
+	  $id=Input::post('id');
+    $order = DB::table('order')
+    ->where(['c_id'=>$id])
+    ->get();
+    $data = json_decode($order,true);
+    // dd($data);exit;
+    if(empty($data)){
+      $dele = DB::table('customer')
+      ->where(['id'=>$id])
+      ->delete();
+    if($dele){
+        return (['msg'=>'删除成功','code'=>1]);
+      }      
+    }else{
+      return (['msg'=>'此用户已经有订单 请联系管理员删除','code'=>2]);
+    }
 
-		$dele = DB::table('customer')
-		->where(['id'=>$id])
-		->delete();
-		print_r($dele);exit;
-  		// print_r($get);exit;
 
   	}
 }

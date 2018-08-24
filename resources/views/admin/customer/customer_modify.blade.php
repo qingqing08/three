@@ -153,8 +153,11 @@ layui.use('layer', function(){
    			if (result.code == 1) {
               layer.msg(result.msg, {icon: result.code, time: 1500}, function () {
               	window.location.href='customer-list';
+
                   var index = parent.layer.getFrameIndex(window.name);
-    				parent.layer.close(index);
+
+                  layer.close(layer.index);
+                      window.parent.location.reload();
               });
           } else {
               layer.msg(result.msg, {icon: result.code});

@@ -69,13 +69,13 @@
             </label>
             <div class="layui-input-inline">
                 <select name="province" id="province" lay-filter="province" class="province">
-      							<option value="">请选择省</option>
+      							<option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>
       					</select>
       					<select name="city" id="city" lay-filter="city" disabled>
-                    <option value="">请选择市</option>
+                    <option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>
                 </select>
       					<select name="area" id="address" lay-filter="county" disabled>
-                    <option value="">请选择县</option>
+                    <option value="">&nbsp;&nbsp;&nbsp;&nbsp;</option>
                 </select>
             </div>
         </div>
@@ -121,9 +121,9 @@ layui.use('layer', function(){
 		var other_connections =  $('input[name=other_connections]').val();
 		var main_project      =  $('#main_project').val();
 		var remarks           =  $('#remarks').val();
-		var province          = $("#province").find("option:selected").text();
-		var city              = $("#city").find("option:selected").text();
-		var address           = $("#address").find("option:selected").text();
+		var province          =  $("#province").find("option:selected").text();
+		var city              =  $("#city").find("option:selected").text();
+		var address           =  $("#address").find("option:selected").text();
 		$.ajaxSetup({
         	headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
     	});
@@ -148,9 +148,11 @@ layui.use('layer', function(){
     	success:function(result){
    			if (result.code == 1) {
               layer.msg(result.msg, {icon: result.code, time: 1500}, function () {
+
               	window.location.href='customer-list';
                   var index = parent.layer.getFrameIndex(window.name);
-    				parent.layer.close(index);
+                  layer.close(layer.index);
+                      window.parent.location.reload();
               });
           } else {
               layer.msg(result.msg, {icon: result.code});
