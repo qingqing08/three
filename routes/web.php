@@ -142,15 +142,15 @@ Route::get('ctype-up' , 'Admin\CtypeController@ctype_up');
 Route::post('ctype-up-do' , 'Admin\CtypeController@ctype_up_do');
 
 /* ContractController  --- 合同*/
-//添加进度页面
-Route::get('contract-add' , 'Admin\ContractController@schedule_add');
+//添加页面
+Route::get('contract-add' , 'Admin\ContractController@contract_add');
 //执行添加
-Route::post('contract-add-do' , 'Admin\ContractController@schedule_add_do');
+Route::post('contract-add-do' , 'Admin\ContractController@contract_add_do');
 //合同展示
-Route::get('contract-list' , 'Admin\ContractController@schedule_list');
+Route::get('contract-list' , 'Admin\ContractController@contract_list');
 //编辑
-Route::get('contract-up' , 'Admin\ContractController@schedule_up');
+Route::get('contract-up' , 'Admin\ContractController@contract_up');
 //执行编辑
-Route::post('contract-up-do' , 'Admin\ContractController@schedule_up_do');
+Route::post('contract-up-do' , 'Admin\ContractController@contract_up_do');
 
 /**/

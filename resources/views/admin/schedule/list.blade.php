@@ -21,8 +21,8 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：{{$num}}条</span>
+        <button class="layui-btn" onclick="x_admin_show('添加类型','schedule-add')"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">已显示：<span style="color:red;">{{$num}}</span> 条数据</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -58,7 +58,7 @@
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
                     </a>
-                    <a title="编辑"  onclick="x_admin_show(this,{{$v -> id}})" href="javascript:;">
+                    <a title="编辑"  onclick="x_admin_up(this,{{$v -> id}})" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -89,7 +89,7 @@
         });
     });
     /* 编辑*/
-    function x_admin_show(obj,id){
+    function x_admin_up(obj,id){
         window.location.href = 'schedule-up?id='+ id;
         }
 

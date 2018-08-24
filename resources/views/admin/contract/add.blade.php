@@ -7,7 +7,7 @@
         <div class="layui-form-item">
             @csrf
             <label for="username" class="layui-form-label">
-                <span class="x-red">*</span>类型名称
+                <span class="x-red">*</span>定金
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="rule_name" name="name" required="" autocomplete="off" class="layui-input">
@@ -17,9 +17,15 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">是否显示</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="status" lay-skin="switch" value='1' lay-text="显示|隐藏" checked>
+            @csrf
+            <label for="username" class="layui-form-label">
+                <span class="x-red">*</span>返利
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="rule_name" name="name" required="" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
             </div>
         </div>
         <div class="layui-form-item">

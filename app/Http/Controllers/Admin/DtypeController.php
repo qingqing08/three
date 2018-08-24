@@ -23,9 +23,9 @@ class DtypeController extends Controller
         $c_time = time();
 
         //验证唯一
-        $only = DB::table('d_type') -> where(['name' => $name]) -> get();
-
-        if($only){
+        $only = DB::table('d_type') -> where(['name' => $name]) -> first();
+        //dd($only);
+        if($only != null){
 
             return (['msg' => '已存在' , 'code' => 3]);
 
@@ -52,7 +52,9 @@ class DtypeController extends Controller
 
         $list = DB::table('d_type') -> paginate(3);
 
-        return view('admin.dtype.list' , ['title' => '跟单类型展示']) -> with('list',$list);
+        $num = count($list);
+
+        return view('admin.dtype.list' , ['title' => '跟单类型展示']) -> with('list',$list) -> with('num' , $num);
     }
 
     //加载修改页面
