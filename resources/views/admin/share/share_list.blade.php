@@ -152,7 +152,7 @@
                                 // alert(data)
                                   if (data.code == 1) {
                                       layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                                          location.href = "order-list";
+                                          location.href = "share-delete";
                                       });
                                   } else {
                                       layer.msg(data.msg, {icon: data.code});

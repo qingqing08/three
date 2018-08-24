@@ -73,5 +73,8 @@ class ShareController extends Controller
             return view('admin.share.share_list',['title'=>'共享记录','info'=>$info]);
 	}
 	/** 取消共享 */
-	
+	public function share_delete(){
+		$id=input::get('id');
+		dd($id);
+	}
 }
