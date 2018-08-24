@@ -128,7 +128,29 @@ Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
 //执行修改页
 Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
-/*  */
 
+/* CtypeController   --- 合同类型*/
+//添加合同类型
+Route::get('ctype-add' , 'Admin\CtypeController@ctype_add');
+//执行添加
+Route::post('ctype-add-do' , 'Admin\CtypeController@ctype_add_do');
+//合同类型展示
+Route::get('ctype-list' , 'Admin\CtypeController@ctype_list');
+//编辑
+Route::get('ctype-up' , 'Admin\CtypeController@ctype_up');
+//执行编辑
+Route::post('ctype-up-do' , 'Admin\CtypeController@ctype_up_do');
+
+/* ContractController  --- 合同*/
+//添加进度页面
+Route::get('contract-add' , 'Admin\ContractController@schedule_add');
+//执行添加
+Route::post('contract-add-do' , 'Admin\ContractController@schedule_add_do');
+//合同展示
+Route::get('contract-list' , 'Admin\ContractController@schedule_list');
+//编辑
+Route::get('contract-up' , 'Admin\ContractController@schedule_up');
+//执行编辑
+Route::post('contract-up-do' , 'Admin\ContractController@schedule_up_do');
 
 /**/
