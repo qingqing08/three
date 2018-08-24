@@ -17,6 +17,7 @@ class ComposerStaticInitf08a6188d7ccde12a5b7c92ae9a403fb
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
+        'eb90278997e8dfe5eade2ed6b629a4f8' => __DIR__ . '/../..' . '/app/Helper/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -322,6 +323,18 @@ class ComposerStaticInitf08a6188d7ccde12a5b7c92ae9a403fb
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\ContractController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ContractController.php',
+        'App\\Http\\Controllers\\Admin\\CtypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CtypeController.php',
+        'App\\Http\\Controllers\\Admin\\CustomerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/CustomerController.php',
+        'App\\Http\\Controllers\\Admin\\DocumentaryController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DocumentaryController.php',
+        'App\\Http\\Controllers\\Admin\\DtypeController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DtypeController.php',
+        'App\\Http\\Controllers\\Admin\\OrderController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/OrderController.php',
+        'App\\Http\\Controllers\\Admin\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RoleController.php',
+        'App\\Http\\Controllers\\Admin\\RuleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RuleController.php',
+        'App\\Http\\Controllers\\Admin\\ScheduleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ScheduleController.php',
+        'App\\Http\\Controllers\\Admin\\ShareController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ShareController.php',
+        'App\\Http\\Controllers\\Admin\\StatisticsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StatisticsController.php',
+        'App\\Http\\Controllers\\Admin\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UserController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',

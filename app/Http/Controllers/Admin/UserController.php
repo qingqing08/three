@@ -15,8 +15,12 @@ use Memcache;
  * @name 用户类
  */
 class UserController extends Controller{
+    public function __construct(){
+        // check_user();
+    }
     //首页
     public function index(){
+        check_user();
         $list = DB::table('rule')->where('parent_id' , 0)->get();
         $list = json_decode($list);
         foreach ($list as $key => $value) {
@@ -28,6 +32,7 @@ class UserController extends Controller{
 
     //欢迎
     public function welcome(){
+        check_user();
         return view('admin.welcome');
     }
 
@@ -43,6 +48,7 @@ class UserController extends Controller{
     }
     //执行登录操作
     public function login_do(){
+        check_user();
         // echo "执行登录操作";
         $account=input::post('account');
         $password=input::post('password');
@@ -61,11 +67,16 @@ class UserController extends Controller{
 
     //执行退出操作
     public function logout(){
+        check_user();
         echo "执行退出操作";
     }
 
     //员工/业务员/管理员列表
     public function user_list(){
+        check_user();
+        if (empty(check_user())) {
+            return redirect('login');
+        }
         $user_list = DB::table('staff')->get();
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
@@ -86,12 +97,14 @@ class UserController extends Controller{
     }
     //添加员工/业务员/管理员页面
     public function user_add(){
+        check_user();
         $role_list = DB::table('role')->get();
         return view('admin.user.add' , ['title'=>'添加管理员' , 'role_list'=>$role_list]);
     }
 
     //执行添加员工/业务员/管理员操作
     public function user_add_do(){
+        check_user();
         $data = Input::post('data');
         unset($data['_token']);
         unset($data['repass']);
@@ -123,26 +136,31 @@ class UserController extends Controller{
 
     //修改员工/业务员/管理员页面
     public function user_modify(){
+        check_user();
         echo "修改员工";
     }
 
     //执行修改员工/业务员/管理员操作
     public function user_modify_do(){
+        check_user();
         echo "执行修改操作";
     }
 
     //删除员工/业务员/管理员操作
     public function user_delete(){
+        check_user();
         echo "执行删除操作";
     }
 
     //设置角色页面
     public function set_role(){
+        check_user();
         echo "设置角色";
     }
 
     //执行设置角色操作
     public function set_role_do(){
+        check_user();
         echo "执行设置角色操作";
     }
 }
