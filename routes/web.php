@@ -54,6 +54,7 @@ Route::get('rule-delete' , 'Admin\RuleController@rule_delete');
 /* UserController---用户类 */
 //登录页面
 Route::get('login' , 'Admin\UserController@login');
+Route::get('user-login' , 'Admin\UserController@user_login');
 //执行登录操作
 Route::post('login-do' , 'Admin\UserController@login_do');
 //执行退出操作
@@ -99,7 +100,7 @@ Route::get('order-view' , 'Admin\OrderController@order_view');
 //修改订单页面
 Route::get('order-modify' , 'Admin\OrderController@order_modify');
 //执行修改订单操作
-Route::post('order-modify-do' , 'Admin\OrderController@order_modify_do');
+Route::any('order-modify-do' , 'Admin\OrderController@order_modify_do');
 //删除订单
 Route::get('order-delete' , 'Admin\OrderController@order_delete');
 //三级联动获取市县
@@ -128,7 +129,30 @@ Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
 //执行修改页
 Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
-/*  */
+
+/* CtypeController   --- 合同类型*/
+//添加合同类型
+Route::get('ctype-add' , 'Admin\CtypeController@ctype_add');
+//执行添加
+Route::post('ctype-add-do' , 'Admin\CtypeController@ctype_add_do');
+//合同类型展示
+Route::get('ctype-list' , 'Admin\CtypeController@ctype_list');
+//编辑
+Route::get('ctype-up' , 'Admin\CtypeController@ctype_up');
+//执行编辑
+Route::post('ctype-up-do' , 'Admin\CtypeController@ctype_up_do');
+
+/* ContractController  --- 合同*/
+//添加页面
+Route::get('contract-add' , 'Admin\ContractController@contract_add');
+//执行添加
+Route::post('contract-add-do' , 'Admin\ContractController@contract_add_do');
+//合同展示
+Route::get('contract-list' , 'Admin\ContractController@contract_list');
+//编辑
+Route::get('contract-up' , 'Admin\ContractController@contract_up');
+//执行编辑
+Route::post('contract-up-do' , 'Admin\ContractController@contract_up_do');
 
 
 /*Documentary--跟单类*/
@@ -145,3 +169,13 @@ Route::any('documentary-modify-do' , 'Admin\DocumentaryController@documentary_mo
 //删除
 Route::any('documentary-delete' , 'Admin\DocumentaryController@documentary_delete');
 
+/**/
+/* ShareController ---共享*/
+//添加共享
+Route::get('share-customer' , 'Admin\ShareController@share_customer');
+//执行添加
+Route::post('share-customer-do' , 'Admin\ShareController@share_customer_do');
+//共享记录展示
+Route::get('share-list' , 'Admin\ShareController@share_list');
+//取消共享
+Route::get('share-delete','Admin\ShareController\@share_delete');

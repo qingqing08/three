@@ -21,7 +21,11 @@
                 <select name="c_id" id="c_id" lay-filter="" >
                     <option value="">请选择用户</option>
                @foreach($data as $v)
-                        <option value="{{@$v['id']}}">{{@$v['customer_name']}}</option>
+                    @if($v['id']==$old['c_id'])
+                          <option value="{{@$v['id']}}" selected>{{@$v['customer_name']}}</option>
+                    @else
+                          <option value="{{@$v['id']}}">{{@$v['customer_name']}}</option>
+                    @endif
                  @endforeach
                        </select>
             </div>
@@ -49,7 +53,7 @@
                 <span class="x-red">*</span>联系电话
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="phone" name="mobile" required="" lay-verify="phone"
+                <input type="text" id="phone" name="mobile" required="" value="{{@$old['mobile']}}" lay-verify="phone"
                        autocomplete="off" class="layui-input">
             </div>
         <div class="layui-form-item">
@@ -57,7 +61,7 @@
                 <span class="x-red">*</span>备用电话
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="phone" name="spare_mobile" required="" lay-verify="phone"
+                <input type="text" id="phone" name="spare_mobile" required=""  value="{{@$old['spare_mobile']}}" lay-verify="phone"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -66,7 +70,7 @@
                 <span class="x-red">*</span>详细地址
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="address" required="" lay-verify="required"
+                <input type="text" id="username" name="address"  value="{{@$old['address']}}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -75,7 +79,7 @@
                 <span class="x-red">*</span>业务
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="business" required="" lay-verify="required"
+                <input type="text" id="username" name="business"  value="{{@$old['business']}}"  required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -85,7 +89,7 @@
                 <span class="x-red">*</span>待收款
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="collection_price" required="" lay-verify="required"
+                <input type="text" id="username" name="collection_price"  value="{{@$old['collection_price']}}"  required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -95,7 +99,7 @@
                 <span class="x-red">*</span>订单金额
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="price" required="" lay-verify="required"
+                <input type="text" id="username" name="price" value="{{@$old['price']}}"  required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -104,7 +108,7 @@
                 <span class="x-red">*</span>优惠金额
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="discount_price" required="" lay-verify="required"
+                <input type="text" id="username" name="discount_price"  value="{{@$old['discount_price']}}"  required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -113,7 +117,7 @@
                 <span class="x-red">*</span>实收金额
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="amount_collected" required="" lay-verify="required"
+                <input type="text" id="username" name="amount_collected" value="{{@$old['amount_collected']}}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -122,7 +126,7 @@
                 <span class="x-red">*</span>打款金额
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="make_money" required="" lay-verify="required"
+                <input type="text" id="username" name="make_money" value="{{@$old['make_money']}}"  required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -131,7 +135,7 @@
                 <span class="x-red">*</span>打款方式
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="make_way" required="" lay-verify="required"
+                <input type="text" id="username" name="make_way" value="{{@$old['make_way']}}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -140,7 +144,7 @@
                 <span class="x-red">*</span>交货方式
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="delivery_mode" required="" lay-verify="required"
+                <input type="text" id="username" name="delivery_mode" value="{{@$old['delivery_mode']}}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -149,7 +153,7 @@
                 <span class="x-red">*</span>运费
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="username" name="freight" required="" lay-verify="required"
+                <input type="text" id="username" name="freight" value="{{@$old['freight']}}" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -158,7 +162,7 @@
                 <span class="x-red">*</span>备注
             </label>
             <div class="layui-input-inline">
-                    <textarea id="remarks"  placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <textarea id="remarks"  placeholder="请输入内容" class="layui-textarea"> {{@$old['order_remarks']}} </textarea>
             </div>
         </div>
 
@@ -268,7 +272,7 @@
                            var token            =   $("input[name=_token]").val();//token
 
                           $.ajax({
-                              url:"create-order-do",
+                              url:"order-modify-do?o_id={{$old['o_id']}}",
                               type:"post",
                               dataType:"json",
                               data:{
@@ -295,7 +299,8 @@
                               success:function (data){
                                   if (data.code == 1) {
                                       layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                                          location.href = "order-list";
+                                          layer.close(layer.index);
+                                          window.parent.location.reload();
                                       });
                                   } else {
                                       layer.msg(data.msg, {icon: data.code});

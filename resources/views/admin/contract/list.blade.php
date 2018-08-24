@@ -21,7 +21,7 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加类型','dtype-add')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加类型','contract-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">已显示 <span style="color:red;">{{$num}}</span> 条数据</span>
     </xblock>
     <table class="layui-table">
@@ -31,29 +31,34 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>类型名称</th>
-            <th>加入时间</th>
-            <th>状态</th>
+            <th>定金</th>
+            <th>返利</th>
+            <th>合同类型</th>
+            <th>起始时间</th>
+            <th>到期时间</th>
+            <th>业务</th>
+            <th>合作项目</th>
+            <th>代理项目</th>
+            <th>备注</th>
             <th>操作</th>
         </thead>
 
-            <tbody>
-            @foreach($list as $v)
+        <tbody>
+        @foreach($list as $v)
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
                 </td>
                 <td>{{$v -> id}}</td>
-                <td>{{$v -> name}}</td>
-                <td>
-                    <?php echo date('Y-m-d H:i:s',$v->c_time); ?>
-                </td>
-                <td class="td-status">
-                    @if($v->status == 1)
-                        <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-                    @else
-                        <span class="layui-btn layui-btn-danger layui-btn-mini" >未启用</span></td>
-                    @endif
+                <td>{{$v -> deposit}}</td>
+                <td>{{$v -> rebate}}</td>
+                <td>{{$v -> c_type}}</td>
+                <td>{{$v -> start_time}}</td>
+                <td>{{$v -> end_time}}</td>
+                <td>{{$v -> business}}</td>
+                <td>{{$v -> project }}</td>
+                <td>{{$v -> proxy_area  }}</td>
+                <td>{{$v -> remarks   }}</td>
                 <td class="td-manage">
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
@@ -66,8 +71,8 @@
                     </a>
                 </td>
             </tr>
-            @endforeach
-            </tbody>
+        @endforeach
+        </tbody>
     </table>
     <div class="page">
         <div>
@@ -94,7 +99,7 @@
     /* 编辑*/
     function x_admin_up(obj , id){
 
-        window.location.href = 'dtype-up?id='+ id;
+        window.location.href = 'ctype-up?id='+ id;
     }
 
     /*用户-停用*/

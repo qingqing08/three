@@ -60,9 +60,15 @@
               @endif
             </td>
             <td class="td-manage">
-              <a title="设置权限"  onclick="x_admin_show('设置权限','set-rule?role_id={{$role->id}}')" href="javascript:;">
-                <i class="layui-icon">&#xe716;</i>
+              @if($role->role_name == '超级管理员')
+              <a title="设置权限" diabled href="javascript:;">
+              <i class="layui-icon">&#xe716;</i>
               </a>
+              @else
+              <a title="设置权限"  onclick="x_admin_show('设置权限','set-rule?role_id={{$role->id}}')" href="javascript:;">
+              <i class="layui-icon">&#xe716;</i>
+              </a>
+              @endif
               <a title="编辑"  onclick="x_admin_show('编辑','role-modify?role_id={{$role->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>

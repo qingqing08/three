@@ -56,22 +56,10 @@
             <th>
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>订单编号</th>
-            <th>收货人</th>
-            <th>联系电话</th>
-            <th>备用电话</th>
-            <th>所在地</th>
-            <th>详细地址</th>
-            <th>业务</th>
-            <th>待收款</th>
-            <th>订单金额</th>
-            <th>优惠金额</th>
-            <th>实收金额</th>
-            <th>打款金额</th>
-            <th >打款方式</th>
-            <th >交货方式</th>
-            <th >运费</th>
-            <th >备注</th>
+            <th>接收人</th>
+            <th>共享客户</th>
+            <th>共享人姓名</th>
+            <th>共享时间</th>
             <th >操作</th>
             </tr>
         </thead>
@@ -81,29 +69,16 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <input type="hidden" name="id" value="{{$v['o_id']}}">
-            <td>{{$v['order_num']}}</td>
-            <td>{{$v['customer_name']}}</td>
-            <td>{{$v['mobile']}}</td>
-            <td>{{$v['spare_mobile']}}</td>
-            <td>{{$v['province']}},{{$v['city']}}</td>
-            <td>{{$v['address']}}</td>
-            <td>{{$v['business']}}</td>
-            <td>{{$v['collection_price']}}</td>
-            <td>{{$v['price']}}</td>
-            <td>{{$v['discount_price']}}</td>
-            <td>{{$v['amount_collected']}}</td>
-            <td>{{$v['make_money']}}</td>
-            <td>{{$v['make_way']}}</td>
-            <td>{{$v['delivery_mode']}}</td>
-            <td>{{$v['freight']}}</td>
-            <td>{{$v['order_remarks']}}</td>
-
+            <input type="hidden" name="id" value="{{$v['id']}}">
+            <td>{{$v['staff_id']}}</td>
+            <td>{{$v['customer_id']}}</td>
+            <td>{{$v['share_name']}}</td>
+            <td><?php echo date('Y-m-d H:i:s',$v['c_time'])?></td>
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-modify?o_id={{$v['o_id']}}')" href="javascript:;">
+              <a title="查看"  onclick="x_admin_show('编辑','order-modify?id={{$v['id']}}')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
-              <a title="删除" onclick="member_del(this,'{{$v['o_id']}}')" href="javascript:;">
+              <a title="删除" onclick="member_del(this,'{{$v['id']}}')" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>

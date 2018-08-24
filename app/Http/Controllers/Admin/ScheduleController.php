@@ -21,9 +21,9 @@ class ScheduleController extends Controller
         $c_time = time();
 
         //验证唯一
-        $only = DB::table('schedule') -> where(['name' => $name]) -> get();
+        $only = DB::table('schedule') -> where(['name' => $name]) -> first();
 
-        if($only){
+        if($only != null ){
 
             return (['msg' => '已存在' , 'code' => 3]);
 
@@ -42,8 +42,8 @@ class ScheduleController extends Controller
     //进度类型展示
     public function schedule_list(){
         $list = DB::table('schedule') -> paginate(3);
-        //$num = count($list);
-        return view('admin.schedule.list',['title' => '进度列表']) -> with('list',$list);
+        $num = count($list);
+        return view('admin.schedule.list',['title' => '进度列表']) -> with('list',$list) -> with('num' , $num);
     }
 
     //加载修改页面

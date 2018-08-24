@@ -21,7 +21,7 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加类型','dtype-add')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加类型','ctype-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">已显示 <span style="color:red;">{{$num}}</span> 条数据</span>
     </xblock>
     <table class="layui-table">
@@ -37,8 +37,8 @@
             <th>操作</th>
         </thead>
 
-            <tbody>
-            @foreach($list as $v)
+        <tbody>
+        @foreach($list as $v)
             <tr>
                 <td>
                     <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
@@ -51,9 +51,9 @@
                 <td class="td-status">
                     @if($v->status == 1)
                         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-                    @else
-                        <span class="layui-btn layui-btn-danger layui-btn-mini" >未启用</span></td>
-                    @endif
+                @else
+                    <span class="layui-btn layui-btn-danger layui-btn-mini" >未启用</span></td>
+                @endif
                 <td class="td-manage">
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
@@ -66,8 +66,8 @@
                     </a>
                 </td>
             </tr>
-            @endforeach
-            </tbody>
+        @endforeach
+        </tbody>
     </table>
     <div class="page">
         <div>
@@ -94,7 +94,7 @@
     /* 编辑*/
     function x_admin_up(obj , id){
 
-        window.location.href = 'dtype-up?id='+ id;
+        window.location.href = 'ctype-up?id='+ id;
     }
 
     /*用户-停用*/

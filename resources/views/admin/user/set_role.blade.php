@@ -6,20 +6,26 @@
           <div class="layui-form-item">
               @csrf
               <label for="username" class="layui-form-label">
-                  <span class="x-red">*</span>角色名称
+                  <span class="x-red">*</span>用户名称
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="role_name" name="role_name" required="" autocomplete="off" class="layui-input">
+                  <input type="text" value="{{$staff_info->name}}" autocomplete="off" class="layui-input" readonly>
+                  <input type="hidden" value="{{$staff_info->id}}" name="staff_id" id="staff_id" />
               </div>
-              <div class="layui-form-mid layui-word-aux">
-                  <span class="x-red">*</span>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">设置角色</label>
+              <div class="layui-input-block">
+                  @foreach($role_list as $role)
+                  <input type="checkbox" name="role" title="{{$role->role_name}}" value="{{$role->id}}">
+                  @endforeach
               </div>
           </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">
-                  增加
+                  提交
               </button>
           </div>
       </form>
@@ -33,14 +39,17 @@
           //监听提交
           //监听提交
         form.on('submit(add)', function(data){
-            var name = $("input[name=role_name]").val();
+            // alert(check_rule);
             var token = $("input[name=_token]").val();
+            var role = $("input[name=role]").val();
+            var staff_id = $("input[name=staff_id]").val();
             $.ajax({
-                url:"role-add-do",
+                url:"set-role-do",
                 type:"post",
                 dataType:"json",
                 data:{
-                    'role_name':name,
+                    'role':role,
+                    'staff_id':staff_id,
                     '_token':token,
                 },
                 cache:false,
@@ -48,8 +57,8 @@
                 success:function (data){
                     if (data.code == 1) {
                         layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                          layer.close(layer.index);
-                          window.parent.location.reload();
+                            layer.close(layer.index);
+                            window.parent.location.reload();
                         });
                     } else {
                         layer.msg(data.msg, {icon: data.code});

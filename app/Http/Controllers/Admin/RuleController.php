@@ -26,12 +26,13 @@ class RuleController extends Controller{
             }
         }
         // dd($list);
-        return view('admin.rule.list' , ['title'=>'权限列表' , 'rule_list'=>$list]);
+        $count = DB::table('rule')->count();
+        return view('admin.rule.list' , ['title'=>'权限列表' , 'rule_list'=>$list , 'count'=>$count]);
     }
 
     //权限添加页面
     public function rule_add(){
-        $rule_list = DB::table('rule')->get();
+        $rule_list = DB::table('rule')->where('parent_id' , 0)->get();
         return view('admin.rule.add' , ['title'=>'权限添加' , 'rule_list'=>$rule_list]);
     }
 

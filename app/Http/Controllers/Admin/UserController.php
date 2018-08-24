@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use View;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Memcache;
 
 /**
@@ -15,32 +16,44 @@ use Memcache;
  * @name 用户类
  */
 class UserController extends Controller{
+    //自动验证登录
+    public function __construct(){
+        // check_user();
+    }
     //首页
     public function index(){
+        // dd(check_user());
+        check_user();
         $list = DB::table('rule')->where('parent_id' , 0)->get();
         $list = json_decode($list);
         foreach ($list as $key => $value) {
             $data = DB::table('rule')->where('parent_id' , $value->id)->get();
             $value->child = $data;
         }
-        return view('admin.index' , ['title'=>'后台首页' , 'list'=>$list]);
+        // dd(Session::get('info'));
+        return view('admin.index' , ['title'=>'后台首页' , 'list'=>$list , 'staff_info'=>Session::get('info')]);
     }
 
     //欢迎
     public function welcome(){
-        return view('admin.welcome');
+        return view('admin.welcome' , ['staff_info'=>Session::get('info')]);
     }
 
     //登录页面
     public function login(){
         //查看有没有session值 如果有则跳转首页 否则去登陆页面
-        $data = session()->get('info');
-        if(empty($data)){
+        if (empty(Session::get('info'))) {
             return view('admin.login' , ['title'=>'后台登录']);
-        }else{
-            return redirect('index');
+        } else {
+            return redirect('/');
         }
+        
     }
+
+    public function user_login(){
+        return view('admin.login' , ['title'=>'后台登录']);
+    }
+
     //执行登录操作
     public function login_do(){
         // echo "执行登录操作";
@@ -52,7 +65,8 @@ class UserController extends Controller{
         }
         if($data->password==md5($password)){
             //登录成功将用户信息存session
-            session()->put('info',$data);
+            Session::put('info',$data);
+            // dd($data);
             return ['msg'=>'登录成功','code'=>1];
         }else{
             return ['msg'=>'用户名密码不匹配','code'=>0];
@@ -61,12 +75,14 @@ class UserController extends Controller{
 
     //执行退出操作
     public function logout(){
-        echo "执行退出操作";
+        Session::flush();
+        return redirect('login');
     }
 
     //员工/业务员/管理员列表
     public function user_list(){
-        $user_list = DB::table('staff')->get();
+        check_user();
+        $user_list = DB::table('staff')->paginate(5);
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
             // dd($staff_role);
@@ -82,24 +98,34 @@ class UserController extends Controller{
             
         }
         // dd($user_list);
-        return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list]);
+        $count = DB::table('staff')->count();
+        // $count = count($user_list);
+        return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list , 'count'=>$count]);
     }
     //添加员工/业务员/管理员页面
     public function user_add(){
+        check_user();
         $role_list = DB::table('role')->get();
         return view('admin.user.add' , ['title'=>'添加管理员' , 'role_list'=>$role_list]);
     }
 
     //执行添加员工/业务员/管理员操作
     public function user_add_do(){
+        check_user();
         $data = Input::post('data');
         unset($data['_token']);
         unset($data['repass']);
         $data['password'] = md5($data['password']);
         $data['c_time'] = time();
 
-        $role_name = $data['role'];
-        unset($data['role']);
+        // dd($data);
+        if (isset($data['role'])) {
+            $role_name = $data['role'];
+            unset($data['role']);
+        } else {
+            $role_name = '';
+        }
+        
         // dd($data);
         $data['number'] = rand(100000,999999);
         $result = DB::table('staff')->insert($data);
@@ -123,26 +149,52 @@ class UserController extends Controller{
 
     //修改员工/业务员/管理员页面
     public function user_modify(){
-        echo "修改员工";
+        check_user();
+        $staff_id = Input::get('staff_id');
+        $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
+        return view('admin.user.modify' , ['title'=>'员工修改' , 'staff_info'=>$staff_info]);
     }
 
     //执行修改员工/业务员/管理员操作
     public function user_modify_do(){
-        echo "执行修改操作";
+        check_user();
+        // dd(Input::post());
+        $data = Input::post('data');
+        unset($data['_token']);
+        $staff_id = $data['staff_id'];
+        unset($data['staff_id']);
+        // dd($data);
+
+        $result = DB::table('staff')->where('id' , $staff_id)->update($data);
+        if ($result) {
+            return ['msg'=>'修改成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'修改失败' , 'code'=>2];
+        }
+        // echo "执行修改操作";
     }
 
     //删除员工/业务员/管理员操作
     public function user_delete(){
+        check_user();
         echo "执行删除操作";
     }
 
     //设置角色页面
     public function set_role(){
-        echo "设置角色";
+        check_user();
+        // dd(Input::get());
+        $staff_id = Input::get('staff_id');
+        $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
+
+        $role_list = DB::table('role')->get();
+        return view('admin.user.set_role' , ['role_list'=>$role_list ,'title'=>'设置角色' , 'staff_info'=>$staff_info]);
+        // echo "设置角色";
     }
 
     //执行设置角色操作
     public function set_role_do(){
+        check_user();
         echo "执行设置角色操作";
     }
 }

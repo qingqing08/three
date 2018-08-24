@@ -51,7 +51,7 @@
             var token = $("input[name=_token]").val();
             //alert(name)
             $.ajax({
-                url:"dtype-add-do",
+                url:"ctype-add-do",
                 type:"post",
                 dataType:"json",
                 data:{
