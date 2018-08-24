@@ -54,6 +54,7 @@ Route::get('rule-delete' , 'Admin\RuleController@rule_delete');
 /* UserController---用户类 */
 //登录页面
 Route::get('login' , 'Admin\UserController@login');
+Route::get('user-login' , 'Admin\UserController@user_login');
 //执行登录操作
 Route::post('login-do' , 'Admin\UserController@login_do');
 //执行退出操作

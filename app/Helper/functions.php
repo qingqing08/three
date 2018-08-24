@@ -13,7 +13,7 @@
  */
 function check_user(){
 	$userinfo = Session::get('info');
-    if ($userinfo == null) {
-    	redirect('login')->send();
+    if (empty($userinfo)) {
+    	redirect('user-login')->send();
     }
 }
