@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 /* 首页 */
-Route::get('index' , 'Admin\UserController@index');
+Route::get('/' , 'Admin\UserController@index');
 Route::get('welcome' , 'Admin\UserController@welcome');
 
 /* RoleController---角色类 */
@@ -71,6 +71,10 @@ Route::post('user-modify-do' , 'Admin\UserController@user_modify_do');
 Route::get('user-delete' , 'Admin\UserController@user_delete');
 //员工/业务员/管理员列表
 Route::get('user-list' , 'Admin\UserController@user_list');
+//给后台用户设置角色
+Route::get('set-role' , 'Admin\UserController@set_role');
+//执行设置用户角色
+Route::post('set-role-do' , 'Admin\UserController@set_role_do');
 
 /* CustomerController---客户类 */
 //客户列表

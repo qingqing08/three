@@ -30,12 +30,13 @@ class UserController extends Controller{
             $data = DB::table('rule')->where('parent_id' , $value->id)->get();
             $value->child = $data;
         }
-        return view('admin.index' , ['title'=>'后台首页' , 'list'=>$list]);
+        // dd(Session::get('info'));
+        return view('admin.index' , ['title'=>'后台首页' , 'list'=>$list , 'staff_info'=>Session::get('info')]);
     }
 
     //欢迎
     public function welcome(){
-        return view('admin.welcome');
+        return view('admin.welcome' , ['staff_info'=>Session::get('info')]);
     }
 
     //登录页面
@@ -81,7 +82,7 @@ class UserController extends Controller{
     //员工/业务员/管理员列表
     public function user_list(){
         check_user();
-        $user_list = DB::table('staff')->get();
+        $user_list = DB::table('staff')->paginate(5);
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
             // dd($staff_role);
@@ -97,7 +98,9 @@ class UserController extends Controller{
             
         }
         // dd($user_list);
-        return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list]);
+        $count = DB::table('staff')->count();
+        // $count = count($user_list);
+        return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list , 'count'=>$count]);
     }
     //添加员工/业务员/管理员页面
     public function user_add(){
@@ -115,8 +118,14 @@ class UserController extends Controller{
         $data['password'] = md5($data['password']);
         $data['c_time'] = time();
 
-        $role_name = $data['role'];
-        unset($data['role']);
+        // dd($data);
+        if (isset($data['role'])) {
+            $role_name = $data['role'];
+            unset($data['role']);
+        } else {
+            $role_name = '';
+        }
+        
         // dd($data);
         $data['number'] = rand(100000,999999);
         $result = DB::table('staff')->insert($data);
@@ -141,13 +150,28 @@ class UserController extends Controller{
     //修改员工/业务员/管理员页面
     public function user_modify(){
         check_user();
-        echo "修改员工";
+        $staff_id = Input::get('staff_id');
+        $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
+        return view('admin.user.modify' , ['title'=>'员工修改' , 'staff_info'=>$staff_info]);
     }
 
     //执行修改员工/业务员/管理员操作
     public function user_modify_do(){
         check_user();
-        echo "执行修改操作";
+        // dd(Input::post());
+        $data = Input::post('data');
+        unset($data['_token']);
+        $staff_id = $data['staff_id'];
+        unset($data['staff_id']);
+        // dd($data);
+
+        $result = DB::table('staff')->where('id' , $staff_id)->update($data);
+        if ($result) {
+            return ['msg'=>'修改成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'修改失败' , 'code'=>2];
+        }
+        // echo "执行修改操作";
     }
 
     //删除员工/业务员/管理员操作
@@ -159,7 +183,13 @@ class UserController extends Controller{
     //设置角色页面
     public function set_role(){
         check_user();
-        echo "设置角色";
+        // dd(Input::get());
+        $staff_id = Input::get('staff_id');
+        $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
+
+        $role_list = DB::table('role')->get();
+        return view('admin.user.set_role' , ['role_list'=>$role_list ,'title'=>'设置角色' , 'staff_info'=>$staff_info]);
+        // echo "设置角色";
     }
 
     //执行设置角色操作
