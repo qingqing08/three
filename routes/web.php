@@ -165,3 +165,5 @@ Route::get('share-customer' , 'Admin\ShareController@share_customer');
 Route::post('share-customer-do' , 'Admin\ShareController@share_customer_do');
 //共享记录展示
 Route::get('share-list' , 'Admin\ShareController@share_list');
+//取消共享
+Route::get('share-delete' , 'Admin\ShareController@share_delete');

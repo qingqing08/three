@@ -139,7 +139,6 @@
 
       /*用户-删除*/
       function member_del(id){
-        alert(id);
                         $.ajax({
                               url:"share-delete",
                               type:"get",
@@ -150,14 +149,13 @@
                               cache:false,
                               async:false,
                               success:function (data){
-                                alert(data)
-                                  // if (data.code == 1) {
-                                  //     layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                                  //         location.href = "share-list";
-                                  //     });
-                                  // } else {
-                                  //     layer.msg(data.msg, {icon: data.code});
-                                  // }
+                                  if (data.code == 1) {
+                                      layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
+                                          location.href = "share-list";
+                                      });
+                                  } else {
+                                      layer.msg(data.msg, {icon: data.code});
+                                  }
                               }
                           })
       }

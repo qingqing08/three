@@ -74,7 +74,31 @@ class ShareController extends Controller
 	}
 	/** 取消共享 */
 	public function share_delete(){
+    	$arr=session()->get('info');
+    	$arr=get_object_vars($arr);
+    	$share_id=$arr['id'];
+
 		$id=input::get('id');
-		dd($id);
+		$cust=DB::table('customer_share')->select('customer_id')->where(['id'=>$id,'share_id'=>$share_id])->get()->map(function ($value) {
+                return (array)$value;
+            })->toArray();
+
+		$customer_id=$cust[0]['customer_id'];
+
+			$order=DB::table('order')->where(['c_id'=>$customer_id,'s_id'=>$share_id])->get()->map(function ($value) {
+                return (array)$value;
+            })->toArray();
+
+				if(empty($order)){
+				  	$res=DB::table('customer_share')->where('id',$id)->delete();
+				    	if($res){
+				            return ['msg'=>'删除成功	','code'=>1];
+				        }else{
+				            return ['msg'=>'删除失败','code'=>0];
+				        }			
+	   			 }else{
+					return ['msg'=>'此用户有订单','code'=>0];
+				}
+
 	}
 }
