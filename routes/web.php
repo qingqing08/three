@@ -54,6 +54,7 @@ Route::get('rule-delete' , 'Admin\RuleController@rule_delete');
 /* UserController---用户类 */
 //登录页面
 Route::get('login' , 'Admin\UserController@login');
+Route::get('user-login' , 'Admin\UserController@user_login');
 //执行登录操作
 Route::post('login-do' , 'Admin\UserController@login_do');
 //执行退出操作
@@ -99,7 +100,7 @@ Route::get('order-view' , 'Admin\OrderController@order_view');
 //修改订单页面
 Route::get('order-modify' , 'Admin\OrderController@order_modify');
 //执行修改订单操作
-Route::post('order-modify-do' , 'Admin\OrderController@order_modify_do');
+Route::any('order-modify-do' , 'Admin\OrderController@order_modify_do');
 //删除订单
 Route::get('order-delete' , 'Admin\OrderController@order_delete');
 //三级联动获取市县
