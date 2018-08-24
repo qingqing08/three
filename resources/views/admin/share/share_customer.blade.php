@@ -1,0 +1,98 @@
+{{--加载头部代码--}}
+@include('layouts.header')
+  <body>
+    <div class="x-body">
+        <form class="layui-form">
+          <div class="layui-form-item">
+              @csrf
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>客户
+              </label>
+              <div class="layui-input-inline">
+                  <select class="rule_parent" name="c_id">
+                      <option value="0">请选择你要共享的客户</option>
+                      @foreach($customer as $cust)
+                      <option value="{{$cust['id']}}">{{$cust['customer_name']}}</option>
+                      @endforeach
+                  </select>
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>员工
+              </label>
+              <div class="layui-input-inline">
+                  <select class="rule_parent" name="s_id">
+                      <option value="0">请选择你要共享的对象</option>
+                      @foreach($staff as $sta)
+                      <option value="{{$sta['id']}}">{{$sta['name']}}</option>
+                      @endforeach
+                  </select>
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button  class="layui-btn" lay-filter="add" lay-submit="">
+                  增加
+              </button>
+          </div>
+      </form>
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+
+          //监听提交
+          form.on('submit(add)', function(data){
+            // alert(123);
+            var c_id = $("select[name=c_id]").val();
+            // alert(c_id);
+            var s_id = $("select[name=s_id]").val();
+            // alert(s_id);
+            var token = $("input[name=_token]").val();
+            $.ajax({
+                url:"share-customer-do",
+                type:"post",
+                dataType:"json",
+                data:{
+                    'customer_id':c_id,
+                    'staff_id':s_id,
+                    '_token':token
+                },
+                cache:false,
+                async:false,
+                success:function (data){
+                    if (data.code == 1) {
+                        layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
+                            location.href = "share-list";
+                        });
+                    } else {
+                        layer.msg(data.msg, {icon: data.code});
+                    }
+
+                }
+            })
+            return false;
+          });
+
+
+        });
+    </script>
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();</script>
+  </body>
+
+</html>

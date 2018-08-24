@@ -154,4 +154,10 @@ Route::get('contract-up' , 'Admin\ContractController@contract_up');
 //执行编辑
 Route::post('contract-up-do' , 'Admin\ContractController@contract_up_do');
 
-/**/
+/* ShareController ---共享*/
+//添加共享
+Route::get('share-customer' , 'Admin\ShareController@share_customer');
+//执行添加
+Route::post('share-customer-do' , 'Admin\ShareController@share_customer_do');
+//共享记录展示
+Route::get('share-list' , 'Admin\ShareController@share_list');

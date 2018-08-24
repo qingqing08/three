@@ -299,7 +299,8 @@
                               success:function (data){
                                   if (data.code == 1) {
                                       layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                                          location.href = "order-list";
+                                          layer.close(layer.index);
+                                          window.parent.location.reload();
                                       });
                                   } else {
                                       layer.msg(data.msg, {icon: data.code});
