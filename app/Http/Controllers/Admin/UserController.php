@@ -86,12 +86,39 @@ class UserController extends Controller{
     }
     //添加员工/业务员/管理员页面
     public function user_add(){
-        return view('admin.user.add');
+        $role_list = DB::table('role')->get();
+        return view('admin.user.add' , ['title'=>'添加管理员' , 'role_list'=>$role_list]);
     }
 
     //执行添加员工/业务员/管理员操作
     public function user_add_do(){
-        echo "执行添加操作";
+        $data = Input::post('data');
+        unset($data['_token']);
+        unset($data['repass']);
+        $data['password'] = md5($data['password']);
+        $data['c_time'] = time();
+
+        $role_name = $data['role'];
+        unset($data['role']);
+        // dd($data);
+        $data['number'] = rand(100000,999999);
+        $result = DB::table('staff')->insert($data);
+
+        if (!empty($role_name)) {
+            $user_info = DB::table('staff')->where('account' , $data['account'])->first();
+            $role_info = DB::table('role')->where('role_name' , $role_name)->first();
+            $arr = [
+                'staff_id'=>$user_info->id,
+                'role_id'=>$role_info->id,
+            ];
+            DB::table('staff_role')->insert($arr);
+        }
+
+        if ($result) {
+            return ['msg'=>'添加成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'添加失败' , 'code'=>2];
+        }
     }
 
     //修改员工/业务员/管理员页面

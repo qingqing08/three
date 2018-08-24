@@ -158,7 +158,7 @@
                 <span class="x-red">*</span>备注
             </label>
             <div class="layui-input-inline">
-                    <textarea id="username" name="remarks"  placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <textarea id="remarks"  placeholder="请输入内容" class="layui-textarea"></textarea>
             </div>
         </div>
 
@@ -264,8 +264,9 @@
                           var make_way          =   $("input[name=make_way]").val();//打款方式
                           var delivery_mode     =   $("input[name=delivery_mode]").val();//交货方式
                           var freight           =   $("input[name=freight]").val();//运费
-                          var remarks             =   $("input[name=remarks]").val();//备注
+                          var order_remarks             =   $("#remarks").val();//备注
                            var token             =   $("input[name=_token]").val();//token
+
                           $.ajax({
                               url:"create-order-do",
                               type:"post",
