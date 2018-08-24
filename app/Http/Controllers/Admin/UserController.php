@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use View;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Memcache;
 
 /**
@@ -21,6 +22,7 @@ class UserController extends Controller{
     }
     //首页
     public function index(){
+        // dd(check_user());
         check_user();
         $list = DB::table('rule')->where('parent_id' , 0)->get();
         $list = json_decode($list);
@@ -33,20 +35,24 @@ class UserController extends Controller{
 
     //欢迎
     public function welcome(){
-        check_user();
         return view('admin.welcome');
     }
 
     //登录页面
     public function login(){
         //查看有没有session值 如果有则跳转首页 否则去登陆页面
-        $data = session()->get('info');
-        if(empty($data)){
+        if (empty(Session::get('info'))) {
             return view('admin.login' , ['title'=>'后台登录']);
-        }else{
+        } else {
             return redirect('index');
         }
+        
     }
+
+    public function user_login(){
+        return view('admin.login' , ['title'=>'后台登录']);
+    }
+
     //执行登录操作
     public function login_do(){
         // echo "执行登录操作";
@@ -58,7 +64,8 @@ class UserController extends Controller{
         }
         if($data->password==md5($password)){
             //登录成功将用户信息存session
-            session()->put('info',$data);
+            Session::put('info',$data);
+            // dd($data);
             return ['msg'=>'登录成功','code'=>1];
         }else{
             return ['msg'=>'用户名密码不匹配','code'=>0];
@@ -67,17 +74,13 @@ class UserController extends Controller{
 
     //执行退出操作
     public function logout(){
-        check_user();
-        Seesion::destroy('info');
-        // echo "执行退出操作";
+        Session::flush();
+        return redirect('login');
     }
 
     //员工/业务员/管理员列表
     public function user_list(){
         check_user();
-        if (empty(check_user())) {
-            return redirect('login');
-        }
         $user_list = DB::table('staff')->get();
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
