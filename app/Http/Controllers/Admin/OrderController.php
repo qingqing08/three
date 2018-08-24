@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Input;
 class OrderController extends Controller
 {
 	/** 防非法 */
-		public function __construct(){
-	        check_user();
-	    }
+		// public function __construct(){
+	 //        check_user();
+	 //    }
 
 	/** 订单新增页面 */
     public function create_order(){
@@ -127,7 +127,7 @@ class OrderController extends Controller
     	$o_id=input::get('o_id');
     	$arr=input::post();
     	unset($arr['_token']);
-    	$res=DB::table('order')->where('o_id',$o_id)->update($arr);
+    	$res=DB::table('order')->where('o_id',$o_id)->update();
     	if($res){
             return ['msg'=>'修改成功	','code'=>1];
         }else{

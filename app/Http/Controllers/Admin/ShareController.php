@@ -72,4 +72,6 @@ class ShareController extends Controller
             // dd($info);
             return view('admin.share.share_list',['title'=>'共享记录','info'=>$info]);
 	}
+	/** 取消共享 */
+	
 }
