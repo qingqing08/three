@@ -17,6 +17,7 @@ class OrderController extends Controller
 
 	/** 订单新增页面 */
     public function create_order(){
+        check_user();
     	$arr=session()->get('info');
     	$arr=get_object_vars($arr);
     	$add_man=$arr['id'];
@@ -64,6 +65,7 @@ class OrderController extends Controller
     }
     /** 订单展示 */
     public function order_list(){
+        check_user();
     	$arr=session()->get('info');
     	$arr=get_object_vars($arr);
     	$s_id=$arr['id'];
@@ -89,6 +91,7 @@ class OrderController extends Controller
 
     /** 订单修改 */
     public function order_modify(){
+        check_user();
 	    $o_id=input::get('o_id');
 	    
 	    $res=DB::table('order')->where('o_id',$o_id)->get()->first();

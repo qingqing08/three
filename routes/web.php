@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 /* 首页 */
-Route::get('index' , 'Admin\UserController@index');
+Route::get('/' , 'Admin\UserController@index');
 Route::get('welcome' , 'Admin\UserController@welcome');
 
 /* RoleController---角色类 */
@@ -71,6 +71,10 @@ Route::post('user-modify-do' , 'Admin\UserController@user_modify_do');
 Route::get('user-delete' , 'Admin\UserController@user_delete');
 //员工/业务员/管理员列表
 Route::get('user-list' , 'Admin\UserController@user_list');
+//给后台用户设置角色
+Route::get('set-role' , 'Admin\UserController@set_role');
+//执行设置用户角色
+Route::post('set-role-do' , 'Admin\UserController@set_role_do');
 
 /* CustomerController---客户类 */
 //客户列表
@@ -86,7 +90,7 @@ Route::get('customer-modify' , 'Admin\CustomerController@customer_modify');
 //执行编辑客户操作
 Route::post('customer-modify-do' , 'Admin\CustomerController@customer_modify_do');
 //删除客户
-Route::any('customer-delete' , 'Admin\CustomerController@customer_delete');
+Route::get('customer-delete' , 'Admin\CustomerController@customer_delete');
 
 /* OrderController---订单类 */
 //订单记录
@@ -154,22 +158,6 @@ Route::get('contract-up' , 'Admin\ContractController@contract_up');
 //执行编辑
 Route::post('contract-up-do' , 'Admin\ContractController@contract_up_do');
 
-
-/*Documentary--跟单类*/
-//跟单列表
-Route::any('documentary-list' , 'Admin\DocumentaryController@documentary_list');
-//跟单添加
-Route::any('documentary-add' , 'Admin\DocumentaryController@documentary_add');
-//执行跟单
-Route::any('documentary-add-do' , 'Admin\DocumentaryController@documentary_add_do');
-//跟单修改
-Route::any('documentary-modify' , 'Admin\DocumentaryController@documentary_modify');
-//执行修改
-Route::any('documentary-modify-do' , 'Admin\DocumentaryController@documentary_modify_do');
-//删除
-Route::any('documentary-delete' , 'Admin\DocumentaryController@documentary_delete');
-
-/**/
 /* ShareController ---共享*/
 //添加共享
 Route::get('share-customer' , 'Admin\ShareController@share_customer');
@@ -177,5 +165,3 @@ Route::get('share-customer' , 'Admin\ShareController@share_customer');
 Route::post('share-customer-do' , 'Admin\ShareController@share_customer_do');
 //共享记录展示
 Route::get('share-list' , 'Admin\ShareController@share_list');
-//取消共享
-Route::get('share-delete','Admin\ShareController\@share_delete');
