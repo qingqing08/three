@@ -15,6 +15,7 @@ use Memcache;
  * @name 用户类
  */
 class UserController extends Controller{
+    //自动验证登录
     public function __construct(){
         // check_user();
     }
@@ -48,7 +49,6 @@ class UserController extends Controller{
     }
     //执行登录操作
     public function login_do(){
-        check_user();
         // echo "执行登录操作";
         $account=input::post('account');
         $password=input::post('password');
@@ -68,7 +68,8 @@ class UserController extends Controller{
     //执行退出操作
     public function logout(){
         check_user();
-        echo "执行退出操作";
+        Seesion::destroy('info');
+        // echo "执行退出操作";
     }
 
     //员工/业务员/管理员列表
