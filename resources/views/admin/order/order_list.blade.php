@@ -100,7 +100,7 @@
             <td>{{$v['order_remarks']}}</td>
 
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-view.html')" href="javascript:;">
+              <a title="查看"  onclick="x_admin_show('编辑','order-modify?o_id={{$v['o_id']}}')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
               <a title="删除" onclick="member_del(this,'{{$v['o_id']}}')" href="javascript:;">
