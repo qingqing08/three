@@ -45,7 +45,7 @@ class UserController extends Controller{
         if (empty(Session::get('info'))) {
             return view('admin.login' , ['title'=>'后台登录']);
         } else {
-            return redirect('index');
+            return redirect('/');
         }
         
     }
