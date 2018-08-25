@@ -21,7 +21,7 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','user-add')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('发布公文','document-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：{{$count}} 条</span>
       </xblock>
       <table class="layui-table">
@@ -52,16 +52,8 @@
             <td class="td-status">
               <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                <i class="layui-icon">&#xe601;</i>
-              </a>
-              <a title="设置角色"  onclick="x_admin_show('设置角色','set-role?staff_id={{$user->id}}')" href="javascript:;">
-              <i class="layui-icon">&#xe716;</i>
-              </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','user-modify?staff_id={{$user->id}}')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this, {{$user->id}} )" href="javascript:;">
+              
+              <a title="删除" onclick="document_del(this, {{$document->id}} )" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -115,11 +107,29 @@
       }
 
       /*用户-删除*/
-      function member_del(obj,id){
+      function document_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
+              $.ajax({
+                url:'document-delete',
+                type:'get',
+                dataType:'json',
+                data:{
+                  document_id:id,
+                },
+                cache:false,
+                async:false,
+                success:function (data){
+                  if (data.code == 1) {
+                    layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
+                        $(obj).parents("tr").remove();
+                        window.location.reload();
+                    });
+                  } else {
+                    layer.msg(data.msg, {icon: data.code});
+                  }
+                }
+              });
           });
       }
 

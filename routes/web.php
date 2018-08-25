@@ -204,4 +204,4 @@ Route::get('document-add' , 'Admin\DocumentController@document_add');
 //执行发布内部公文
 Route::post('document-add-do' , 'Admin\DocumentController@document_add_do');
 //删除公文
-Route::post('document-delete' , 'Admin\DocumentController@document_delete');
+Route::get('document-delete' , 'Admin\DocumentController@document_delete');
