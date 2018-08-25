@@ -21,7 +21,7 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加产品','product-add')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','user-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：{{$count}} 条</span>
       </xblock>
       <table class="layui-table">
@@ -31,30 +31,37 @@
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>产品名称</th>
-            <th>单位</th>
-            <th>价格</th>
-            <th>库存</th>
-            <th>折扣</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th>发布人</th>
+            <th>发布时间</th>
+            <th>状态</th>
             <th>操作</th>
         </thead>
         <tbody>
-          @foreach($product_list as $product)
+          @foreach($document_list as $document)
           <tr>
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>{{$product->id}}</td>
-            <td>{{$product->product_name}}</td>
-            <td>{{$product->unit}}</td>
-            <td>{{$product->price}}</td>
-            <td>{{$product->number}}</td>
-            <td class="td-status">{{$product->discount}}</td>
+            <td>{{$document->id}}</td>
+            <td>{{$document->title}}</td>
+            <td>{{$document->content}}</td>
+            <td>{{$document->staff_name}}</td>
+            <td>{{$document->c_time}}</td>
+            <td class="td-status">
+              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
             <td class="td-manage">
-              <a title="编辑"  onclick="x_admin_show('编辑','product-modify?product_id={{$product->id}}')" href="javascript:;">
+              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
+                <i class="layui-icon">&#xe601;</i>
+              </a>
+              <a title="设置角色"  onclick="x_admin_show('设置角色','set-role?staff_id={{$user->id}}')" href="javascript:;">
+              <i class="layui-icon">&#xe716;</i>
+              </a>
+              <a title="编辑"  onclick="x_admin_show('编辑','user-modify?staff_id={{$user->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
-              <a title="删除" onclick="product_del(this, '{{$product->id}}' )" href="javascript:;">
+              <a title="删除" onclick="member_del(this, {{$user->id}} )" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -64,6 +71,7 @@
       </table>
       
       <div class="page">
+        {{$document_list->links()}}
       </div>
 
     </div>
@@ -107,29 +115,11 @@
       }
 
       /*用户-删除*/
-      function product_del(obj,id){
+      function member_del(obj,id){
           layer.confirm('确认要删除吗？',function(index){
               //发异步删除数据
-              $.ajax({
-                url:'product-delete',
-                type:'get',
-                dataType:'json',
-                data:{
-                  product_id:id,
-                },
-                cache:false,
-                async:false,
-                success:function (data){
-                  if (data.code == 1) {
-                    layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
-                        $(obj).parents("tr").remove();
-                        window.location.reload();
-                    });
-                  } else {
-                    layer.msg(data.msg, {icon: data.code});
-                  }
-                }
-              });
+              $(obj).parents("tr").remove();
+              layer.msg('已删除!',{icon:1,time:1000});
           });
       }
 

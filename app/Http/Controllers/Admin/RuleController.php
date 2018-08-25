@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Input;
 class RuleController extends Controller{
     //权限列表
     public function rule_list(){
-        $list = DB::table('rule')->where('status',1)->get();
+        $list = DB::table('rule')->where('status',1)->paginate(10);
 
         foreach ($list as $key => $value) {
             if ($value->parent_id != 0) {

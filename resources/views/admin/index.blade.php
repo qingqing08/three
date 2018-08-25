@@ -39,7 +39,8 @@
             @foreach($list as $rule)
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6b8;</i>
+                    <!-- <i class="iconfont">&#xe6b8;</i> -->
+                    <i class="iconfont"><?php echo $rule->icon;?></i>
                     <cite>{{$rule->rule_name}}</cite>
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
@@ -47,7 +48,7 @@
                     @foreach($rule->child as $child)
                     <li>
                         <a _href="{{$child->rule_url}}">
-                            <i class="iconfont">&#xe6a7;</i>
+                            <i class="iconfont"><?php echo $child->icon;?></i>
                             <cite>{{$child->rule_name}}</cite>
 
                         </a>

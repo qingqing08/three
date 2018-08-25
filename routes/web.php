@@ -180,7 +180,7 @@ Route::get('product-modify' , 'Admin\ProductController@product_modify');
 //执行修改产品操作
 Route::post('product-modify-do' , 'Admin\ProductController@product_modify_do');
 //删除产品
-Route::get('product-list' , 'Admin\ProductController@product_list');
+Route::get('product-delete' , 'Admin\ProductController@product_delete');
 
 /* LevelController ---客户级别 */
 //客户级别展示
@@ -195,3 +195,13 @@ Route::get('level-modify' , 'Admin\LevelController@level_modify');
 Route::get('level-modify-do' , 'Admin\LevelController@level_modify_do');
 //客户级别删除
 Route::get('level-delete' , 'Admin\LevelController@level_delete');
+
+/* 功能插件 */
+//内部公文列表
+Route::get('document-list' , 'Admin\DocumentController@document_list');
+//发布内部公文
+Route::get('document-add' , 'Admin\DocumentController@document_add');
+//执行发布内部公文
+Route::post('document-add-do' , 'Admin\DocumentController@document_add_do');
+//删除公文
+Route::post('document-delete' , 'Admin\DocumentController@document_delete');

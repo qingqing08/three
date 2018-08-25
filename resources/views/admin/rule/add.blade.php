@@ -44,6 +44,17 @@
               </div>
           </div>
           <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">
+                  <span class="x-red">*</span>图标
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="icon" name="icon" required="" autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>
+              </div>
+          </div> 
+          <div class="layui-form-item">
             <label class="layui-form-label">是否显示</label>
             <div class="layui-input-block">
               <input type="checkbox" name="status" lay-skin="switch" value='1' lay-text="显示|隐藏" checked>
@@ -66,24 +77,25 @@
 
           //监听提交
           form.on('submit(add)', function(data){
-            var status = $("input[name=status]").checked;
-            // alert(status);
-            var parent_id = $("select[name=parent_id]").val();
-            // alert(parent_id);
-            var rule_name = $("input[name=rule_name]").val();
-            var rule_url = $("input[name=rule_url]").val();
-            var token = $("input[name=_token]").val();
+            // var status = $("input[name=status]").checked;
+            // // alert(status);
+            // var parent_id = $("select[name=parent_id]").val();
+            // // alert(parent_id);
+            // var rule_name = $("input[name=rule_name]").val();
+            // var rule_url = $("input[name=rule_url]").val();
+            // var token = $("input[name=_token]").val();
             $.ajax({
                 url:"rule-add-do",
                 type:"post",
                 dataType:"json",
-                data:{
-                    'parent_id':parent_id,
-                    'status':status,
-                    'rule_name':rule_name,
-                    'rule_url':rule_url,
-                    '_token':token,
-                },
+                // data:{
+                //     'parent_id':parent_id,
+                //     'status':status,
+                //     'rule_name':rule_name,
+                //     'rule_url':rule_url,
+                //     '_token':token,
+                // },
+                data:data.field,
                 cache:false,
                 async:false,
                 success:function (data){
