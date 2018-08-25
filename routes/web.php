@@ -167,3 +167,17 @@ Route::post('share-customer-do' , 'Admin\ShareController@share_customer_do');
 Route::get('share-list' , 'Admin\ShareController@share_list');
 //取消共享
 Route::get('share-delete' , 'Admin\ShareController@share_delete');
+
+/* ProductController---产品类 */
+//产品列表
+Route::get('product-list' , 'Admin\ProductController@product_list');
+//添加产品页面
+Route::get('product-add' , 'Admin\ProductController@product_add');
+//执行添加产品操作
+Route::post('product-add-do' , 'Admin\ProductController@product_add_do');
+//修改产品页面
+Route::get('product-modify' , 'Admin\ProductController@product_modify');
+//执行修改产品操作
+Route::post('product-modify-do' , 'Admin\ProductController@product_modify_do');
+//删除产品
+Route::get('product-list' , 'Admin\ProductController@product_list');

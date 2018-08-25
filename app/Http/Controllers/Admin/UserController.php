@@ -195,6 +195,24 @@ class UserController extends Controller{
     //执行设置角色操作
     public function set_role_do(){
         check_user();
-        echo "执行设置角色操作";
+        $data = Input::post();
+        $data['role_id'] = $data['role'];
+        unset($data['role']);
+        unset($data['_token']);
+        
+        $user_role = DB::table('staff_role')->where($data)->first();
+        if ($user_role != null) {
+            return ['msg'=>'设置成功' , 'code'=>1];
+        } else {
+            $result = DB::table('staff_role')->insert($data);
+            // dd($data);
+            // echo "执行设置角色操作";
+            if ($result) {
+                return ['msg'=>'设置成功' , 'code'=>1];
+            } else {
+                return ['msg'=>'设置失败' , 'code'=>2];
+            }
+        }
+        
     }
 }
