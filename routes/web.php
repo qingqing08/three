@@ -181,3 +181,17 @@ Route::get('product-modify' , 'Admin\ProductController@product_modify');
 Route::post('product-modify-do' , 'Admin\ProductController@product_modify_do');
 //删除产品
 Route::get('product-list' , 'Admin\ProductController@product_list');
+
+/* LevelController ---客户级别 */
+//客户级别展示
+Route::get('level-list' , 'Admin\LevelController@level_list');
+//客户级别添加
+Route::get('level-add' , 'Admin\LevelController@level_add');
+//客户级别添加执行
+Route::post('level-add-do' , 'Admin\LevelController@level_add_do');
+//客户级别修改
+Route::get('level-modify' , 'Admin\LevelController@level_modify');
+//客户级别修改执行
+Route::get('level-modify-do' , 'Admin\LevelController@level_modify_do');
+//客户级别删除
+Route::get('level-delete' , 'Admin\LevelController@level_delete');
