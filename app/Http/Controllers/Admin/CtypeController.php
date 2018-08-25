@@ -29,7 +29,7 @@ class CtypeController extends Controller
 
         //验证唯一
         $only = DB::table('c_type') -> where(['name' => $name]) -> first();
-        //dd($only);
+        //dd($only);36
         if($only != null){
 
             return (['msg' => '已存在' , 'code' => 3]);

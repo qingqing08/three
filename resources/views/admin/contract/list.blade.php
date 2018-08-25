@@ -52,7 +52,7 @@
                 <td>{{$v -> id}}</td>
                 <td>{{$v -> deposit}}</td>
                 <td>{{$v -> rebate}}</td>
-                <td>{{$v -> c_type}}</td>
+                <td>{{$v -> name}}</td>
                 <td>{{$v -> start_time}}</td>
                 <td>{{$v -> end_time}}</td>
                 <td>{{$v -> business}}</td>
@@ -63,7 +63,7 @@
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
                     </a>
-                    <a title="编辑"  onclick="x_admin_up(this , {{$v -> id}})" href="javascript:;">
+                    <a title="编辑"  onclick="x_admin_up('编辑' , 'contract-up?id={{$v -> id}}')" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
                     <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
@@ -94,13 +94,8 @@
         laydate.render({
             elem: '#end' //指定元素
         });
-    });
+    })
 
-    /* 编辑*/
-    function x_admin_up(obj , id){
-
-        window.location.href = 'ctype-up?id='+ id;
-    }
 
     /*用户-停用*/
     function member_stop(obj,id){

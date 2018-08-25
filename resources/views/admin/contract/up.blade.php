@@ -3,14 +3,14 @@
 <body>
 <div class="x-body">
     <form class="layui-form">
-
+        <input type="text"  name="id" value="{{$data -> id}}">
         <div class="layui-form-item">
             @csrf
             <label for="deposit" class="layui-form-label">
                 <span class="x-red">*</span>定金
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="rule_name" name="deposit" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="deposit" required="" autocomplete="off" class="layui-input" value="{{$data ->deposit }}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -21,7 +21,7 @@
                 <span class="x-red">*</span>返利
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="rule_name" name="rebate" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="rebate" required="" autocomplete="off" class="layui-input" value="{{$data -> rebate}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -35,7 +35,11 @@
                 <select name="c_type" id="">
                     <option>请选择</option>
                     @foreach($type as $v)
-                    <option value="{{$v -> id}}">{{$v -> name }}</option>
+                        @if($v -> id == $data -> c_type)
+                            <option value="{{$v -> id}}" selected>{{$v -> name }}</option>
+                        @else
+                            <option value="{{$v -> id}}" >{{$v -> name }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -48,7 +52,7 @@
                 <span class="x-red">*</span>起始时间
             </label>
             <div class="layui-input-inline">
-                <input type="datetime-local" id="rule_name" name="start_time" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="start_time" required="" autocomplete="off" class="layui-input" value="{{$data -> start_time}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -59,7 +63,7 @@
                 <span class="x-red">*</span>结束时间
             </label>
             <div class="layui-input-inline">
-                <input type="datetime-local" id="rule_name" name="end_time" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="end_time" required="" autocomplete="off" class="layui-input" value="{{$data -> end_time}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -70,7 +74,7 @@
                 <span class="x-red">*</span>业务
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="rule_name" name="business" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="business" required="" autocomplete="off" class="layui-input" value="{{$data -> business}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -81,7 +85,7 @@
                 <span class="x-red">*</span>合作项目
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="rule_name" name="project" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="rule_name" name="project" required="" autocomplete="off" class="layui-input" value="{{$data -> project}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -92,7 +96,7 @@
                 <span class="x-red">*</span>代理项目
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="proxy_area" name="proxy_area" required="" autocomplete="off" class="layui-input">
+                <input type="text" id="proxy_area" name="proxy_area" required="" autocomplete="off" class="layui-input" value="{{$data -> proxy_area}}">
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -103,7 +107,7 @@
                 <span class="x-red">*</span>备注
             </label>
             <div class="layui-input-inline">
-                <textarea name="remarks" id="" cols="10" rows="5" autocomplete="off" class="layui-textarea"></textarea>
+                <textarea name="remarks" id="" cols="10" rows="5" autocomplete="off" class="layui-textarea" >{{$data -> remarks}}</textarea>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -114,7 +118,7 @@
             <label for="L_repass" class="layui-form-label">
             </label>
             <button type="button"  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
+                修改
             </button>
         </div>
     </form>
@@ -129,6 +133,7 @@
         form.on('submit(add)', function(data){
             //alert(status);
             // alert(parent_id);
+            var id = $("input[name=id]").val();
             var deposit = $("input[name=deposit]").val();
             var rebate = $("input[name=rebate]").val();
             var c_type = $("select[name=c_type]").val();
@@ -141,10 +146,11 @@
             var remarks = $("textarea[name=remarks]").val();
 
             $.ajax({
-                url:"contract-add-do",
+                url:"contract-up-do",
                 type:"post",
                 dataType:"json",
                 data:{
+                    'id':id,
                     'deposit':deposit,
                     'rebate':rebate,
                     'c_type':c_type,
