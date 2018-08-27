@@ -24,7 +24,7 @@ class UserController extends Controller{
     //员工/业务员/管理员列表
     public function user_list(){
         check_user();
-        $user_list = DB::table('staff')->paginate(5);
+        $user_list = DB::table('staff')->where('is_del' , 1)->paginate(5);
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
             // dd($staff_role);
@@ -40,7 +40,7 @@ class UserController extends Controller{
             
         }
         // dd($user_list);
-        $count = DB::table('staff')->count();
+        $count = DB::table('staff')->where('is_del' , 1)->count();
         // $count = count($user_list);
         return view('admin.user.list' , ['title'=>'管理员列表' , 'user_list'=>$user_list , 'count'=>$count]);
     }
@@ -121,7 +121,15 @@ class UserController extends Controller{
     //删除员工/业务员/管理员操作
     public function user_delete(){
         check_user();
-        echo "执行删除操作";
+        // dd(Input::get());
+        $staff_id = Input::get('staff_id');
+
+        $result = DB::table('staff')->where('id' , $staff_id)->update(['is_del'=>0]);
+        if ($result) {
+            return ['msg'=>'删除成功' , 'code'=>1];
+        } else {
+            return ['msg'=>'删除失败' , 'code'=>2];
+        }
     }
 
     //设置角色页面

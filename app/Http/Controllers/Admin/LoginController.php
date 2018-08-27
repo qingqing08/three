@@ -50,7 +50,7 @@ class LoginController extends Controller{
         // echo "执行登录操作";
         $account=input::post('account');
         $password=input::post('password');
-        $data = DB::table('staff')->where('account',$account)->first();
+        $data = DB::table('staff')->where(['account'=>$account , 'is_del'=>1])->first();
         if(empty($data)){
             return ['msg'=>'用户名密码不匹配','code'=>0];
         }
