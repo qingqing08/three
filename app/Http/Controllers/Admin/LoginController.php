@@ -23,6 +23,8 @@ class LoginController extends Controller{
 
     //欢迎
     public function welcome(){
+    	// $action = "访问了首页";
+    	// add_log($action);
         return view('admin.welcome' , ['staff_info'=>Session::get('info')]);
     }
 

@@ -83,6 +83,8 @@ class UserController extends Controller{
         }
 
         if ($result) {
+            $action = "增加了一条用户名为(".$data['name'].")的数据";
+            add_log($action);
             return ['msg'=>'添加成功' , 'code'=>1];
         } else {
             return ['msg'=>'添加失败' , 'code'=>2];

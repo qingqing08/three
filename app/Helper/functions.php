@@ -17,3 +17,13 @@ function check_user(){
     	redirect('user-login')->send();
     }
 }
+
+/**
+ * 公用的方法	增加日志
+ * @param $action 做了什么操作
+ */
+function add_log($action = ''){
+	$userinfo = Session::get('info');
+	$filename = "./log.txt";
+	file_put_contents($filename, "[".date("Y-m-d H:i:s" , time())."]".$userinfo->name.",".$action."\r\n" , FILE_APPEND);
+}
