@@ -130,7 +130,7 @@ class OrderController extends Controller
     	$o_id=input::get('o_id');
     	$arr=input::post();
     	unset($arr['_token']);
-    	$res=DB::table('order')->where('o_id',$o_id)->update();
+    	$res=DB::table('order')->where('o_id',$o_id)->update($arr);
     	if($res){
             return ['msg'=>'修改成功	','code'=>1];
         }else{
