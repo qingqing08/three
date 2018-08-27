@@ -79,6 +79,8 @@ class DocumentaryController extends Controller
   		]);
   		// var_dump($res);exit;s
   		if($res){
+  			// $action = "添加一条客户名为("$post['customer_name']")的数据";
+     //        add_log($action);
   			return ['msg'=>'添加成功','code'=>1];
   		}else{
   			return ['msg'=>'添加失败','code'=>2];

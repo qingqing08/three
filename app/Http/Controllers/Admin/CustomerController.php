@@ -77,6 +77,8 @@ class CustomerController extends Controller{
   		]);
   		// var_dump($res);
   		if($res){
+         $action = "增加了一条客户名为("$post['customer_name']")的数据";
+            add_log($action);
   			return ['msg'=>'添加成功','code'=>1];
   		}else{
   			return ['msg'=>'添加失败','code'=>2];
@@ -127,6 +129,8 @@ class CustomerController extends Controller{
   		  'address'=>$post['address'],
   		]);
   		if($res){
+          $action = "修改了一条客户名为("$post['customer_name']")的数据";
+            add_log($action);
   			return ['msg'=>'修改成功','code'=>1];
   		}else{
   			return ['msg'=>'修改失败','code'=>2];
@@ -136,6 +140,8 @@ class CustomerController extends Controller{
 //删除客户
   	public function customer_delete(){
 	  $id=Input::post('id');
+    $allda=DB::table('customer')->where('id',$id)->get();
+
     $order = DB::table('order')
     ->where(['c_id'=>$id])
     ->get();
@@ -146,6 +152,8 @@ class CustomerController extends Controller{
       ->where(['id'=>$id])
       ->delete();
     if($dele){
+       $action = "山粗了一条客户名为("$allda->customer_name")的数据";
+            add_log($action);
         return (['msg'=>'删除成功','code'=>1]);
       }      
     }else{
