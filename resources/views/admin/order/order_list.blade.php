@@ -48,7 +48,7 @@
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','create-order')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：{{$count}} 条</span>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -81,29 +81,29 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <input type="hidden" name="id" value="{{$v['o_id']}}">
-            <td>{{$v['order_num']}}</td>
-            <td>{{$v['customer_name']}}</td>
-            <td>{{$v['mobile']}}</td>
-            <td>{{$v['spare_mobile']}}</td>
-            <td>{{$v['province']}},{{$v['city']}}</td>
-            <td>{{$v['address']}}</td>
-            <td>{{$v['business']}}</td>
-            <td>{{$v['collection_price']}}</td>
-            <td>{{$v['price']}}</td>
-            <td>{{$v['discount_price']}}</td>
-            <td>{{$v['amount_collected']}}</td>
-            <td>{{$v['make_money']}}</td>
-            <td>{{$v['make_way']}}</td>
-            <td>{{$v['delivery_mode']}}</td>
-            <td>{{$v['freight']}}</td>
-            <td>{{$v['order_remarks']}}</td>
+            <input type="hidden" name="id" value="{{$v->o_id}}">
+            <td>{{$v->order_num}}</td>
+            <td>{{$v->customer_name}}</td>
+            <td>{{$v->mobile}}</td>
+            <td>{{$v->spare_mobile}}</td>
+            <td>{{$v->province}},{{$v->city}}</td>
+            <td>{{$v->address}}</td>
+            <td>{{$v->business}}</td>
+            <td>{{$v->collection_price}}</td>
+            <td>{{$v->price}}</td>
+            <td>{{$v->discount_price}}</td>
+            <td>{{$v->amount_collected}}</td>
+            <td>{{$v->make_money}}</td>
+            <td>{{$v->make_way}}</td>
+            <td>{{$v->delivery_mode}}</td>
+            <td>{{$v->freight}}</td>
+            <td>{{$v->order_remarks}}</td>
 
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-modify?o_id={{$v['o_id']}}')" href="javascript:;">
+              <a title="查看"  onclick="x_admin_show('编辑','order-modify?o_id={{$v->o_id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
-              <a title="删除" onclick="member_del(this,'{{$v['o_id']}}')" href="javascript:;">
+              <a title="删除" onclick="member_del(this,'{{$v->o_id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -112,15 +112,9 @@
         </tbody>
       </table>
       <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
+        {{$info->links()}}
       </div>
+
 
     </div>
     <script>

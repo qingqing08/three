@@ -59,24 +59,20 @@ class ShareController extends Controller
     	$arr=get_object_vars($arr);
     	$share_id=$arr['id'];
     	$share_name=$arr['name'];
-
-            $info=DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->get()->map(function ($value) {
-                return (array)$value;
-            })->toArray();
-            // dd($info);exit;
+            $info=DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->paginate(1);
             foreach ($info as $k => $v) {
-            	$cust = DB::table('customer')->where('id',$v['customer_id'])->first();
+            	$cust = DB::table('customer')->where('id',$v->customer_id)->first();
             	// echo $cust['customer_name'];
             	// dd($cust);
             	if ($cust != null) {
-            		$info[$k]['customer_id'] = $cust->customer_name;
-	            	$staff = DB::table('staff')->where('id',$v['staff_id'])->first();
-	            	$info[$k]['staff_id'] = $staff->name;  
-	            	$info[$k]['share_name']=$share_name;
-            	}
+            		$v->customer_id = $cust->customer_name;
+	            	$staff = DB::table('staff')->where('id',$v->staff_id)->first();
+	            	$v->staff_id= $staff->name;  
+	            	$v->share_name=$share_name;
+                    $count = DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->count();
+           	}
             }
-            // dd($info);
-            return view('admin.share.share_list',['title'=>'共享记录','info'=>$info]);
+            return view('admin.share.share_list',['title'=>'共享记录','info'=>$info,'count'=>$count]);
 	}
 	/** 取消共享 假删，修改状态*/
 	public function share_delete(){
@@ -111,7 +107,6 @@ class ShareController extends Controller
 	   			 }else{
 					return ['msg'=>'此用户有订单','code'=>0];
 				}
-
 	}
 
 

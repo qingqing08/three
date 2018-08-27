@@ -74,12 +74,14 @@ class OrderController extends Controller
     	$s_id=$arr['id'];
     	$info=DB::table('order')
     	->join('customer','customer.id','order.c_id')
-    	->where(['s_id'=>$s_id,'order.is_del'=>1])->get()->map(function ($value) {
-                return (array)$value;
-            })->toArray();
+    	->where(['s_id'=>$s_id,'order.is_del'=>1])->paginate(1);
     	// print_r($info);exit;
         // dd($info);
-    	return view('admin.order.order_list',['title'=>'订单列表','info'=>$info]);
+        $count = DB::table('order')
+        ->join('customer','customer.id','order.c_id')
+        ->where(['s_id'=>$s_id,'order.is_del'=>1])->count();
+        // dd($count);
+    	return view('admin.order.order_list',['title'=>'订单列表','info'=>$info,'count'=>$count]);
     }
 
     /** 订单删除 假删，修改状态*/
