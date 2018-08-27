@@ -74,20 +74,21 @@ class OrderController extends Controller
     	$s_id=$arr['id'];
     	$info=DB::table('order')
     	->join('customer','customer.id','order.c_id')
-    	->where('s_id',$s_id)->get()->map(function ($value) {
+    	->where(['s_id'=>$s_id,'order.is_del'=>1])->get()->map(function ($value) {
                 return (array)$value;
             })->toArray();
     	// print_r($info);exit;
+        // dd($info);
     	return view('admin.order.order_list',['title'=>'订单列表','info'=>$info]);
     }
 
-    /** 订单删除 */
+    /** 订单删除 假删，修改状态*/
     public function order_delete(){
     	$id=input::get('id');
         $arr=DB::table('order')->select('order_num')->where('o_id',$id)->get()->map(function ($value) {
                 return (array)$value;
             })->toArray();
-    	$res=DB::table('order')->where('o_id',$id)->delete();
+    	$res=DB::table('order')->where('o_id',$id)->update(['is_del'=>0]);
     	if($res){
             $action = "删除订单号为(".$arr[0]['order_num'].")的数据";
             add_log($action);
@@ -96,6 +97,21 @@ class OrderController extends Controller
             return ['msg'=>'删除失败','code'=>0];
         }
     }
+    /** 订单删除 真删 */
+    //  public function order_delete(){
+    //     $id=input::get('id');
+    //     $arr=DB::table('order')->select('order_num')->where('o_id',$id)->get()->map(function ($value) {
+    //             return (array)$value;
+    //         })->toArray();
+    //     $res=DB::table('order')->where('o_id',$id)->update(['is_del'=>0]);
+    //     if($res){
+    //         $action = "删除订单号为(".$arr[0]['order_num'].")的数据";
+    //         add_log($action);
+    //         return ['msg'=>'删除成功    ','code'=>1];
+    //     }else{
+    //         return ['msg'=>'删除失败','code'=>0];
+    //     }
+    // }
 
     /** 订单修改 */
     public function order_modify(){
