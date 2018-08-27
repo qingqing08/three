@@ -249,3 +249,17 @@ Route::get('statistics-delete' , 'Admin\StatisticsController@statistics_delete')
 Route::get('statistics-up' , 'Admin\StatisticsController@statistics_up');
 //执行修改
 Route::post('statistics-up-do' , 'Admin\StatisticsController@statistics_up_do');
+
+/* LogisticsController   ---  物流管理*/
+//物流展示
+Route::get('logistics-list' , 'Admin\LogisticsController@logistics_list');
+//物流添加
+Route::get('logistics-add' , 'Admin\LogisticsController@logistics_add');
+//执行物流添加
+Route::post('logistics-add-do' , 'Admin\LogisticsController@logistics_add_do');
+//修改
+Route::get('logistics-up' , 'Admin\LogisticsController@logistics_up');
+//执行修改
+Route::post('logistics-up-do' , 'Admin\LogisticsController@logistics_up_do');
+//删除
+Route::get('logistics-delete' , 'Admin\LogisticsController@logistics_delete');
