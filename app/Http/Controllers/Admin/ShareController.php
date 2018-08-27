@@ -40,6 +40,12 @@ class ShareController extends Controller
     	}else{
   		    $res=DB::table('customer_share')->insert($share);
 			 if($res){
+                $data=DB::table('customer')->select('customer_name')->where('id',$share['customer_id'])->first();
+                 $data1=DB::table('staff')->select('name')->where('id',$share['staff_id'])->first();
+                 $data=get_object_vars($data);
+                 $data1=get_object_vars($data1);
+                $action = "将名为(".$data['customer_name'].")的用户共享给le (".$data1['name'].")";
+                add_log($action);
 	            return ['msg'=>'您已成功共享','code'=>1];
 	        }else{
 	            return ['msg'=>'共享失败','code'=>0];
@@ -79,7 +85,7 @@ class ShareController extends Controller
     	$share_id=$arr['id'];
 
 		$id=input::get('id');
-		$cust=DB::table('customer_share')->select('customer_id')->where(['id'=>$id,'share_id'=>$share_id])->get()->map(function ($value) {
+		$cust=DB::table('customer_share')->select('customer_id','staff_id')->where(['id'=>$id,'share_id'=>$share_id])->get()->map(function ($value) {
                 return (array)$value;
             })->toArray();
 
@@ -92,6 +98,12 @@ class ShareController extends Controller
 				if(empty($order)){
 				  	$res=DB::table('customer_share')->where('id',$id)->delete();
 				    	if($res){
+                            $data=DB::table('customer')->select('customer_name')->where('id',$customer_id)->first();
+                            $data1=DB::table('staff')->select('name')->where('id',$cust[0]['staff_id'])->first();
+                            $data=get_object_vars($data);
+                            $data1=get_object_vars($data1);
+                            $action = "将名为(".$data['customer_name'].")的用户取消共享 (".$data1['name'].")";
+                            add_log($action);
 				            return ['msg'=>'删除成功	','code'=>1];
 				        }else{
 				            return ['msg'=>'删除失败','code'=>0];

@@ -31,6 +31,8 @@ class ScheduleController extends Controller
 
             $res = DB::table('schedule') -> insert(['name' => $name , 'status' => $status , 'c_time' => $c_time]);
             if($res){
+                $action = "增加了一条进度类型为(". $name .")的数据";
+                add_log($action);
                 return(['msg' => '添加成功' , 'code' => 1]);
             }else{
                 return(['msg' => '添加失败' , 'code' => 2]);
@@ -72,6 +74,8 @@ class ScheduleController extends Controller
             $res = DB::table('schedule') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
 
             if($res){
+                $action = "编辑了一条进度类型为(". $name .")的数据";
+                add_log($action);
                 return (['msg' => '编辑成功' , 'code' => 1]);
             }else{
                 return (['msg' => '编辑失败','code' => 2]);

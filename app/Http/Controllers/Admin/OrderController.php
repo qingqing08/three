@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 
 class OrderController extends Controller
 {
+
 	/** 防非法 */
 		// public function __construct(){
 	 //        check_user();
@@ -58,6 +59,8 @@ class OrderController extends Controller
     	$arr['c_time']=time();
     	$res=DB::table('order')->insert($arr);
 		 if($res){
+            $action = "增加了一条订单号为(".$arr['order_num'].")的数据";
+            add_log($action);
             return ['msg'=>'添加成功	','code'=>1];
         }else{
             return ['msg'=>'添加失败','code'=>0];
@@ -81,8 +84,13 @@ class OrderController extends Controller
     /** 订单删除 */
     public function order_delete(){
     	$id=input::get('id');
+        $arr=DB::table('order')->select('order_num')->where('o_id',$id)->get()->map(function ($value) {
+                return (array)$value;
+            })->toArray();
     	$res=DB::table('order')->where('o_id',$id)->delete();
     	if($res){
+            $action = "删除订单号为(".$arr[0]['order_num'].")的数据";
+            add_log($action);
             return ['msg'=>'删除成功	','code'=>1];
         }else{
             return ['msg'=>'删除失败','code'=>0];
@@ -132,6 +140,11 @@ class OrderController extends Controller
     	unset($arr['_token']);
     	$res=DB::table('order')->where('o_id',$o_id)->update($arr);
     	if($res){
+            $data=DB::table('order')->select('order_num')->where('o_id',$id)->get()->map(function ($value) {
+                return (array)$value;
+            })->toArray();
+            $action = "删除订单号为(".$data[0]['order_num'].")的数据";
+            add_log($action);
             return ['msg'=>'修改成功	','code'=>1];
         }else{
             return ['msg'=>'修改失败','code'=>0];

@@ -45,6 +45,8 @@ class CtypeController extends Controller
             $res = DB::table('c_type') -> insert($arr);
 
             if($res){
+                $action = "增加了一条合同类型为(". $name .")的数据";
+                add_log($action);
                 return (['msg' => '添加成功' , 'code' => 1]);
             }else{
                 return (['msg' => '添加失败' , 'code' => 2]);
@@ -92,6 +94,8 @@ class CtypeController extends Controller
             $res = DB::table('c_type') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
 
             if($res){
+                $action = "编辑了一条合同类型为(". $name .")的数据";
+                add_log($action);
                 return (['msg' => '编辑成功' , 'code' => 1]);
             }else{
                 return (['msg' => '编辑失败','code' => 2]);
