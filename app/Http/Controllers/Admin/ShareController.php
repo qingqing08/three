@@ -60,7 +60,7 @@ class ShareController extends Controller
     	$share_id=$arr['id'];
     	$share_name=$arr['name'];
 
-            $info=DB::table('customer_share')->where('share_id',$share_id)->get()->map(function ($value) {
+            $info=DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->get()->map(function ($value) {
                 return (array)$value;
             })->toArray();
             // dd($info);exit;
@@ -78,7 +78,7 @@ class ShareController extends Controller
             // dd($info);
             return view('admin.share.share_list',['title'=>'共享记录','info'=>$info]);
 	}
-	/** 取消共享 */
+	/** 取消共享 假删，修改状态*/
 	public function share_delete(){
     	$arr=session()->get('info');
     	$arr=get_object_vars($arr);
@@ -96,7 +96,7 @@ class ShareController extends Controller
             })->toArray();
 
 				if(empty($order)){
-				  	$res=DB::table('customer_share')->where('id',$id)->delete();
+				  	$res=DB::table('customer_share')->where('id',$id)->update(['is_del'=>0]);
 				    	if($res){
                             $data=DB::table('customer')->select('customer_name')->where('id',$customer_id)->first();
                             $data1=DB::table('staff')->select('name')->where('id',$cust[0]['staff_id'])->first();
@@ -113,4 +113,42 @@ class ShareController extends Controller
 				}
 
 	}
+
+
+
+        /** 取消共享 真删*/
+    // public function share_delete(){
+    //     $arr=session()->get('info');
+    //     $arr=get_object_vars($arr);
+    //     $share_id=$arr['id'];
+
+    //     $id=input::get('id');
+    //     $cust=DB::table('customer_share')->select('customer_id','staff_id')->where(['id'=>$id,'share_id'=>$share_id])->get()->map(function ($value) {
+    //             return (array)$value;
+    //         })->toArray();
+
+    //     $customer_id=$cust[0]['customer_id'];
+
+    //         $order=DB::table('order')->where(['c_id'=>$customer_id,'s_id'=>$share_id])->get()->map(function ($value) {
+    //             return (array)$value;
+    //         })->toArray();
+
+    //             if(empty($order)){
+    //                 $res=DB::table('customer_share')->where('id',$id)->delete();
+    //                     if($res){
+    //                         $data=DB::table('customer')->select('customer_name')->where('id',$customer_id)->first();
+    //                         $data1=DB::table('staff')->select('name')->where('id',$cust[0]['staff_id'])->first();
+    //                         $data=get_object_vars($data);
+    //                         $data1=get_object_vars($data1);
+    //                         $action = "将名为(".$data['customer_name'].")的用户取消共享 (".$data1['name'].")";
+    //                         add_log($action);
+    //                         return ['msg'=>'删除成功    ','code'=>1];
+    //                     }else{
+    //                         return ['msg'=>'删除失败','code'=>0];
+    //                     }           
+    //              }else{
+    //                 return ['msg'=>'此用户有订单','code'=>0];
+    //             }
+
+    // }
 }

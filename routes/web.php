@@ -83,7 +83,7 @@ Route::get('customer-modify' , 'Admin\CustomerController@customer_modify');
 //执行编辑客户操作
 Route::post('customer-modify-do' , 'Admin\CustomerController@customer_modify_do');
 //删除客户
-Route::get('customer-delete' , 'Admin\CustomerController@customer_delete');
+Route::any('customer-delete' , 'Admin\CustomerController@customer_delete');
 
 /* OrderController---订单类 */
 //订单记录

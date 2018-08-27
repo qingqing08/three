@@ -26,6 +26,7 @@ class CustomerController extends Controller{
       // ->get();
       // $sharearr = json_decode($share,true);
       $data = DB::table('customer')
+      ->where('customer.is_del',0)
       // ->where(['add_man'=>$u_id])
   		->join('customer_level','customer.customer_level', '=', 'customer_level.level_id')
   		->join('customer_type','customer.customer_type', '=', 'customer_type.type_id')
@@ -50,6 +51,7 @@ class CustomerController extends Controller{
 //执行添加
   	public function customer_add_do(){
   		$post=Input::post();
+      // print_r($post);exit;
   		if(empty($post['customer_type'])){
   				return ['msg'=>'类型必填','code'=>2];
   		}
@@ -73,11 +75,12 @@ class CustomerController extends Controller{
   		  'province'=>$post['province'],
   		  'city'=>$post['city'],
   		  'address'=>$post['address'],
-  		  'add_man'=>$user->id
+  		  'add_man'=>$user->id,
+        'is_del'=>0
   		]);
   		// var_dump($res);
   		if($res){
-         $action = "增加了一条客户名为("$post['customer_name']")的数据";
+         $action = "增加了一条客户名为(".$post['customer_name'].")的数据";
             add_log($action);
   			return ['msg'=>'添加成功','code'=>1];
   		}else{
@@ -129,7 +132,7 @@ class CustomerController extends Controller{
   		  'address'=>$post['address'],
   		]);
   		if($res){
-          $action = "修改了一条客户名为("$post['customer_name']")的数据";
+          $action = "修改了一条客户名为(".$post['customer_name'].")的数据";
             add_log($action);
   			return ['msg'=>'修改成功','code'=>1];
   		}else{
@@ -141,7 +144,7 @@ class CustomerController extends Controller{
   	public function customer_delete(){
 	  $id=Input::post('id');
     $allda=DB::table('customer')->where('id',$id)->get();
-
+    $newa= json_decode($allda,true);
     $order = DB::table('order')
     ->where(['c_id'=>$id])
     ->get();
@@ -150,10 +153,10 @@ class CustomerController extends Controller{
     if(empty($data)){
       $dele = DB::table('customer')
       ->where(['id'=>$id])
-      ->delete();
+      ->update([
+        'is_del'=>1
+      ]);
     if($dele){
-       $action = "山粗了一条客户名为("$allda->customer_name")的数据";
-            add_log($action);
         return (['msg'=>'删除成功','code'=>1]);
       }      
     }else{

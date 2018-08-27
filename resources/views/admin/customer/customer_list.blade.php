@@ -59,8 +59,8 @@
 <script type="text/javascript">
 
     function del(id){   
-     layui.use('layer', function(){
-  var layer = layui.layer;
+    layui.use('layer', function(){
+    var layer = layui.layer;
     $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
         });
