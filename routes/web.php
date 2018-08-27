@@ -196,7 +196,7 @@ Route::get('level-modify-do' , 'Admin\LevelController@level_modify_do');
 //客户级别删除
 Route::get('level-delete' , 'Admin\LevelController@level_delete');
 
-/* 功能插件 */
+/* DocumentController ----- 功能插件 */
 //内部公文列表
 Route::get('document-list' , 'Admin\DocumentController@document_list');
 //发布内部公文
@@ -205,3 +205,17 @@ Route::get('document-add' , 'Admin\DocumentController@document_add');
 Route::post('document-add-do' , 'Admin\DocumentController@document_add_do');
 //删除公文
 Route::get('document-delete' , 'Admin\DocumentController@document_delete');
+
+/* DocumentaryController ------跟单管理 */
+//跟单记录
+Route::get('documentary-list' , "Admin\DocumentaryController@documentary_list");
+//新增跟单记录
+Route::get('documentary-add' , "Admin\DocumentaryController@documentary_add");
+//执行新增跟单操作
+Route::post('documentary-add-do' , "Admin\DocumentaryController@documentary_add_do");
+//修改跟单页面
+Route::get('documentary-modify' , "Admin\DocumentaryController@documentary_modify");
+//执行修改跟单操作
+Route::post('documentary-modify-do' , "Admin\DocumentaryController@documentary_modify_do");
+//删除跟单
+Route::post('documentary-delete' , "Admin\DocumentaryController@documentary_delete");
