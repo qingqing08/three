@@ -18,8 +18,10 @@ class DocumentaryController extends Controller
 {
  	//跟单展示列表
  	public function documentary_list(){
+ 		$user = session()->get('info');
 
  		$data = DB::table('documentary')
+ 		->where(['staff_id'=>$user->id])
  		->join('d_type','documentary.t_id','d_type.id')
  		->join('schedule','documentary.s_id','schedule.id')
  		->join('customer','documentary.customer_id','customer.id')
@@ -64,7 +66,6 @@ class DocumentaryController extends Controller
  		$post=input::post();
  		// print_r($post);exit;
  		$user = session()->get('info');
-
   		// var_dump($user);exit();
   		$res = DB::table('documentary')
   		->insert([
