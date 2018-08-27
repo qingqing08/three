@@ -211,7 +211,7 @@ Route::get('documentary-modify' , "Admin\DocumentaryController@documentary_modif
 //执行修改跟单操作
 Route::post('documentary-modify-do' , "Admin\DocumentaryController@documentary_modify_do");
 //删除跟单
-Route::post('documentary-delete' , "Admin\DocumentaryController@documentary_delete");
+Route::any('documentary-delete' , "Admin\DocumentaryController@documentary_delete");
 
 /* LoginController---登录类 */
 //登录页面
@@ -221,3 +221,17 @@ Route::get('user-login' , 'Admin\LoginController@user_login');
 Route::post('login-do' , 'Admin\LoginController@login_do');
 //执行退出操作
 Route::get('logout' , 'Admin\LoginController@logout');
+
+/* DepartmentController ---- 部门类 */
+//部门列表
+Route::get('department-list' , 'Admin\DepartmentController@department_list');
+//添加部门
+Route::get('department-add' , 'Admin\DepartmentController@department_add');
+//执行添加部门操作
+Route::post('department-add-do' , 'Admin\DepartmentController@department_add_do');
+//修改部门
+Route::get('department-modify' , 'Admin\DepartmentController@department_modify');
+//执行修改部门操作
+Route::post('department-modify-do' , 'Admin\DepartmentController@department_modify_do');
+//删除部门
+Route::post('department-delete' , 'Admin\DepartmentController@department_delete');
