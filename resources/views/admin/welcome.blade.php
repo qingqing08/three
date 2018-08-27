@@ -74,7 +74,7 @@
             </div>
         </fieldset>
         <fieldset class="layui-elem-field">
-            <legend>系统通知</legend>
+            <legend>内部公文</legend>
             <div class="layui-field-box">
                 <table class="layui-table" lay-skin="line">
                     <tbody>
