@@ -16,8 +16,8 @@
 // });
 
 /* 首页 */
-Route::get('/' , 'Admin\UserController@index');
-Route::get('welcome' , 'Admin\UserController@welcome');
+Route::get('/' , 'Admin\LoginController@index');
+Route::get('welcome' , 'Admin\LoginController@welcome');
 
 /* RoleController---角色类 */
 //角色列表
