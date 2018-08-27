@@ -144,7 +144,7 @@
             var hour = time.getHours();
             var minutes = time.getMinutes();
             var seconds = time.getSeconds();
-            console.log(seconds);
+            //console.log(seconds);
             if(month<10){
                 month = "0"+month;
             }
