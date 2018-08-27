@@ -36,10 +36,9 @@ class LevelController extends Controller
 
 	/** 客户级别列表展示 */
 	public function level_list(){
-		$info=DB::table('customer_level')->where('is_del',1)->get()->map(function ($value) {
-                return (array)$value;
-            })->toArray();
-			return view('admin.level.level_list',['title'=>'客户级别展示','info'=>$info]);
+		$info=DB::table('customer_level')->where('is_del',1)->paginate(1);
+		$count = DB::table('customer_level')->where('is_del',1)->count();
+			return view('admin.level.level_list',['title'=>'客户级别展示','info'=>$info,'count'=>$count]);
 	
 	}
 

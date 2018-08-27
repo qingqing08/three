@@ -25,6 +25,7 @@ class UserController extends Controller{
     public function user_list(){
         check_user();
         $user_list = DB::table('staff')->where('is_del' , 1)->paginate(5);
+        dd($user_list);
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
             // dd($staff_role);
