@@ -25,7 +25,9 @@ class LoginController extends Controller{
     public function welcome(){
     	// $action = "访问了首页";
     	// add_log($action);
-        return view('admin.welcome' , ['staff_info'=>Session::get('info')]);
+
+        $list = DB::table('statistics') -> where(['status' => 1]) -> get();
+        return view('admin.welcome' , ['staff_info'=>Session::get('info')]) -> with('list' , $list);
     }
 
     //登录页面

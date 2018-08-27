@@ -43,8 +43,11 @@ class ScheduleController extends Controller
 
     //进度类型展示
     public function schedule_list(){
+
         $list = DB::table('schedule') -> paginate(3);
-        $num = count($list);
+
+        $num = empty($list)?0:count($list);
+
         return view('admin.schedule.list',['title' => '进度列表']) -> with('list',$list) -> with('num' , $num);
     }
 

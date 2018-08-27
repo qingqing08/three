@@ -235,3 +235,17 @@ Route::get('department-modify' , 'Admin\DepartmentController@department_modify')
 Route::post('department-modify-do' , 'Admin\DepartmentController@department_modify_do');
 //删除部门
 Route::post('department-delete' , 'Admin\DepartmentController@department_delete');
+
+/* StatisticsController  --- 统计管理*/
+//统计列表
+Route::get('statistics-list' , 'Admin\StatisticsController@statistics_list');
+//添加统计
+Route::get('statistics-add' , 'Admin\StatisticsController@statistics_add');
+//执行添加
+Route::post('statistics-add-do' , 'Admin\StatisticsController@statistics_add_do');
+//统计删除
+Route::get('statistics-delete' , 'Admin\StatisticsController@statistics_delete');
+//统计修改
+Route::get('statistics-up' , 'Admin\StatisticsController@statistics_up');
+//执行修改
+Route::post('statistics-up-do' , 'Admin\StatisticsController@statistics_up_do');

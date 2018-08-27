@@ -54,7 +54,7 @@ class DtypeController extends Controller
 
         $list = DB::table('d_type') -> paginate(3);
 
-        $num = count($list);
+        $num = empty($list)?0:count($list);
 
         return view('admin.dtype.list' , ['title' => '跟单类型展示']) -> with('list',$list) -> with('num' , $num);
     }

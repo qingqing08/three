@@ -59,7 +59,7 @@ class CtypeController extends Controller
 
         $list = DB::table('c_type') -> paginate(3);
 
-        $num = count($list);
+        $num = empty($list)?0:count($list);
 
         return view('admin.ctype.list' , ['title' => '跟单类型展示']) -> with('list',$list) -> with('num' , $num);
     }
