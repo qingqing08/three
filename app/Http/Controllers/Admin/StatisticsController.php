@@ -12,7 +12,7 @@ class StatisticsController extends Controller
     //统计列表
     public function statistics_list(){
 
-        $list = DB::table('statistics') -> where(['status' => 1]) -> paginate(3);
+        $list = DB::table('statistics') -> where(['is_del' => 1]) -> paginate(3);
 
         //dd($list);
         $num = empty($list)?0:count($list);
@@ -53,6 +53,17 @@ class StatisticsController extends Controller
             } else {
                 return ['msg' => '增加失败', 'code' => 1];
             }
+        }
+    }
+
+    /** 统计项删除 */
+    public function statistics_delete(){
+        $id=input::get('id');
+        $res=DB::table('statistics')->where('id',$id)->update(['is_del'=>0]);
+        if ($res) {
+            return ['msg'=>'删除成功','code'=>1];
+        }else{
+            return ['msg'=>'删除失败','code'=>0];
         }
     }
 }

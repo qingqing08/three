@@ -58,10 +58,10 @@
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
                     </a>
-                    <a title="编辑"  onclick="x_admin_up(this,{{$v -> id}})" href="javascript:;">
+                   <!--  <a title="编辑"  onclick="x_admin_up(this,{{$v -> id}})" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
-                    </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    </a> -->
+                    <a title="删除" onclick="member_del('{{$v->id}}')" href="javascript:;">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                 </td>
@@ -118,12 +118,26 @@
     }
 
     /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
+    function member_del(id){
+                    $.ajax({
+                              url:"statistics-delete",
+                              type:"get",
+                              dataType:"json",
+                              data:{
+                                id:id
+                              },
+                              cache:false,
+                              async:false,
+                              success:function (data){
+                                  if (data.code == 1) {
+                                      layer.msg(data.msg, {icon: data.code, time: 1500}, function () {
+                                          location.href = "statistics-list";
+                                      });
+                                  } else {
+                                      layer.msg(data.msg, {icon: data.code});
+                                  }
+                              }
+                          })
     }
 
 
