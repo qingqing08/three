@@ -52,13 +52,6 @@ Route::get('rule-modify-do' , 'Admin\RuleController@rule_modify_do');
 Route::get('rule-delete' , 'Admin\RuleController@rule_delete');
 
 /* UserController---用户类 */
-//登录页面
-Route::get('login' , 'Admin\UserController@login');
-Route::get('user-login' , 'Admin\UserController@user_login');
-//执行登录操作
-Route::post('login-do' , 'Admin\UserController@login_do');
-//执行退出操作
-Route::get('logout' , 'Admin\UserController@logout');
 //添加员工/业务员/管理员页面
 Route::get('user-add' , 'Admin\UserController@user_add');
 //执行添加员工/业务员/管理员操作
@@ -219,3 +212,12 @@ Route::get('documentary-modify' , "Admin\DocumentaryController@documentary_modif
 Route::post('documentary-modify-do' , "Admin\DocumentaryController@documentary_modify_do");
 //删除跟单
 Route::post('documentary-delete' , "Admin\DocumentaryController@documentary_delete");
+
+/* LoginController---登录类 */
+//登录页面
+Route::get('login' , 'Admin\LoginController@login');
+Route::get('user-login' , 'Admin\LoginController@user_login');
+//执行登录操作
+Route::post('login-do' , 'Admin\LoginController@login_do');
+//执行退出操作
+Route::get('logout' , 'Admin\LoginController@logout');
