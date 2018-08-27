@@ -21,7 +21,7 @@ class DocumentaryController extends Controller
  		$user = session()->get('info');
 
  		$data = DB::table('documentary')
- 		->where(['staff_id'=>$user->id])
+ 		->where(['staff_id'=>$user->id,'documentary.is_del'=>0])
  		->join('d_type','documentary.t_id','d_type.id')
  		->join('schedule','documentary.s_id','schedule.id')
  		->join('customer','documentary.customer_id','customer.id')
@@ -75,7 +75,8 @@ class DocumentaryController extends Controller
   			's_id'=>$post['s_id'],
   			'next_time'=>$post['next_time'],
   			'remind'=>$post['remind'],
-  			'describe'=>$post['describe']
+  			'describe'=>$post['describe'],
+  			'is_del'=>0
   		]);
   		// var_dump($res);exit;s
   		if($res){
@@ -154,13 +155,15 @@ class DocumentaryController extends Controller
 	public function documentary_delete(){
 		$id=Input::post('id');
 		$dele = DB::table('documentary')
-	      ->where(['id'=>$id])
-	      ->delete();
+		->where(['id'=>$id])
+  		->update([
+  			'is_del'=>1
+  		]);
+
 	 if($dele){
         return (['msg'=>'删除成功','code'=>1]);
       }else{
       return (['msg'=>'删除失败','code'=>2]);
     }
 	}
-
 }
