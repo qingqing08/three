@@ -23,6 +23,8 @@ class LevelController extends Controller
 		}else{
 			$res=DB::table('customer_level')->insert(['level_name'=>$level_name]);
 			if ($res) {
+				$action = "增加了一条客户等级为(".$level_name.")的数据";
+            	add_log($action);
 				return ['msg'=>'添加成功','code'=>1];
 			}else{
 				return ['msg'=>'添加失败','code'=>0];
@@ -44,8 +46,13 @@ class LevelController extends Controller
 	/** 客户级别删除 */
 	public function level_delete(){
 		$level_id=input::get('level_id');
+		$arr=DB::table('customer_level')->where('level_id',$level_id)->first();
+		            $data=get_object_vars($arr);
+		            // dd($data);
     	$res=DB::table('customer_level')->where('level_id',$level_id)->delete();
     	if($res){
+            $action = "删除了一条客户等级为(".$data['level_name'].")的数据";
+            	add_log($action);
             return ['msg'=>'删除成功	','code'=>1];
         }else{
             return ['msg'=>'删除失败','code'=>0];
