@@ -48,7 +48,7 @@
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="x_admin_show('添加用户','create-order')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">{{$count}}</span>
       </xblock>
       <table class="layui-table">
         <thead>
@@ -69,16 +69,16 @@
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <input type="hidden" name="id" value="{{$v['id']}}">
-            <td>{{$v['staff_id']}}</td>
-            <td>{{$v['customer_id']}}</td>
-            <td>{{$v['share_name']}}</td>
-            <td><?php echo date('Y-m-d H:i:s',$v['c_time'])?></td>
+            <input type="hidden" name="id" value="{{$v->id}}">
+            <td>{{$v->staff_id}}</td>
+            <td>{{$v->customer_id}}</td>
+            <td>{{$v->share_name}}</td>
+            <td><?php echo date('Y-m-d H:i:s',$v->c_time)?></td>
             <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-modify?id={{$v['id']}}')" href="javascript:;">
+              <a title="查看"  onclick="x_admin_show('编辑','order-modify?id={{$v->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe63c;</i>
               </a>
-              <a title="删除" onclick="member_del('{{$v['id']}}')" href="javascript:;">
+              <a title="删除" onclick="member_del('{{$v->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -87,14 +87,7 @@
         </tbody>
       </table>
       <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
+        {{$info->links()}}
       </div>
 
     </div>
