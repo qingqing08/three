@@ -76,6 +76,7 @@
             </tr>
         </thead>
         <tbody>
+          @if($info!=null)
           @foreach($info as $v)
           <tr>
             <td>
@@ -109,6 +110,9 @@
             </td>
           </tr>
           @endforeach
+          @else
+          <font color="red">无数据</font>
+          @endif
         </tbody>
       </table>
       <div class="page">

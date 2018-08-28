@@ -73,18 +73,24 @@ class ShareController extends Controller
     	$share_id=$arr['id'];
     	$share_name=$arr['name'];
             $info=DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->paginate(1);
+            $count='';
+            if($info !=null){
             foreach ($info as $k => $v) {
             	$cust = DB::table('customer')->where('id',$v->customer_id)->first();
             	// echo $cust['customer_name'];
             	// dd($cust);
-            	if ($cust != null) {
+            	
             		$v->customer_id = $cust->customer_name;
 	            	$staff = DB::table('staff')->where('id',$v->staff_id)->first();
 	            	$v->staff_id= $staff->name;  
 	            	$v->share_name=$share_name;
                     $count = DB::table('customer_share')->where(['share_id'=>$share_id,'is_del'=>1])->count();
-           	}
-            }
+
+           }
+        }
+                    if ($count==null) {
+                        $count=0;
+                    }
             return view('admin.share.share_list',['title'=>'共享记录','info'=>$info,'count'=>$count]);
 	}
 	/** 取消共享 假删，修改状态*/

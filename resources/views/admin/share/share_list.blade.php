@@ -64,26 +64,29 @@
             </tr>
         </thead>
         <tbody>
-          @foreach($info as $v)
-          <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-            <input type="hidden" name="id" value="{{$v->id}}">
-            <td>{{$v->staff_id}}</td>
-            <td>{{$v->customer_id}}</td>
-            <td>{{$v->share_name}}</td>
-            <td><?php echo date('Y-m-d H:i:s',$v->c_time)?></td>
-            <td class="td-manage">
-              <a title="查看"  onclick="x_admin_show('编辑','order-modify?id={{$v->id}}')" href="javascript:;">
-                <i class="layui-icon">&#xe63c;</i>
-              </a>
-              <a title="删除" onclick="member_del('{{$v->id}}')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
-          </tr>
-          @endforeach
+          @if($info!=null)
+            @foreach($info as $v)
+            <tr>
+              <td>
+                <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+              </td>
+              <input type="hidden" name="id" value="{{$v->id}}">
+              <td>{{$v->staff_id}}</td>
+              <td>{{$v->customer_id}}</td>
+              <td>{{$v->share_name}}</td>
+              <td><?php echo date('Y-m-d H:i:s',$v->c_time)?></td>
+              <td class="td-manage">
+                <a title="查看"  onclick="x_admin_show('编辑','order-modify?id={{$v->id}}')" href="javascript:;">
+                  <i class="layui-icon">&#xe63c;</i>
+                </a>
+                <a title="删除" onclick="member_del('{{$v->id}}')" href="javascript:;">
+                  <i class="layui-icon">&#xe640;</i>
+                </a>
+              </td>
+            </tr>
+            @endforeach
+            @endif
+
         </tbody>
       </table>
       <div class="page">

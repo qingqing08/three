@@ -37,19 +37,22 @@ class OrderController extends Controller
                 return (array)$value;
             })->toArray();
 		// print_r($cust_id);exit;
-		if($cust_id){
+		if($cust_id!=null){
 			$data = [];
 			foreach ($cust_id as $k => $v) {
 				$data=DB::table('customer')->select('customer_name','id')->where('id',$v['customer_id'])->first();
 				$cust[]=get_object_vars($data);
 			}
-		}
+		
 		foreach ($kehu as $k => $v) {
 				$date[]=$v;
 		}
 		foreach ($cust as $key => $value) {
 				$date[]=$value;
 			}
+        }else{
+            $date='';
+        }
 		// print_r($date);exit;
 		return view('admin.order.create',['title'=>'订单新增','data'=>$date]);   		
     }

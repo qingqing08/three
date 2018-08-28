@@ -1,5 +1,6 @@
 @include('layouts.header')
 <body>
+  @if($data!=null)
 <div class="x-body">
     <form class="layui-form">
       @csrf
@@ -18,6 +19,7 @@
             </label>
             <div class="layui-input-inline">
                <div class="layui-input-inline">
+                
                 <select name="c_id" id="c_id" lay-filter="" >
                     <option value="">请选择用户</option>
                @foreach($data as $v)
@@ -172,6 +174,9 @@
 </div> 
 </form>
 </div>
+                   @else
+                    您当前没有用户
+                  @endif
 <script type="text/javascript" src="address.js"></script>
 <script>
     layui.config({
