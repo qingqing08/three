@@ -47,10 +47,10 @@
             <td>{{$department->c_time}}</td>
             <td>{{$department->add_id}}</td>
             <td class="td-manage">
-              <a title="编辑"  onclick="x_admin_show('编辑','department-modify?staff_id={{$department->id}}')" href="javascript:;">
+              <a title="编辑"  onclick="x_admin_show('编辑','department-modify?id={{$department->id}}')" href="javascript:;">
                 <i class="layui-icon">&#xe642;</i>
               </a>
-              <a title="删除" onclick="member_del(this, {{$department->id}} )" href="javascript:;">
+              <a title="删除" onclick="del({{$department->id}})" href="javascript:;">
                 <i class="layui-icon">&#xe640;</i>
               </a>
             </td>
@@ -103,45 +103,33 @@
           });
       }
 
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $.ajax({
-                url:"user-delete",
-                type:"get",
-                data:{
-                  staff_id:id,
-                },
-                async:false,
-                cache:false,
-                success:function (data){
-                  if (data.code == 1) {
-                    $(obj).parents("tr").remove();
-                    layer.msg(data.msg , {icon:1,time:1000});
-                  } else {
-                    layer.msg(data.msg , {icon:1,time:1000});
-                  }
-                  
-                }
-              })
-              
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
     </script>
+
+    <script type="text/javascript">
+    function del(id){   
+     layui.use('layer', function(){
+  var layer = layui.layer;
+    $.ajaxSetup({
+            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+        });
+        $.ajax({
+            url:"department-delete",
+            type:"post",
+            data:{id:id},
+            success:function(result){
+            if (result.code == 1) {
+              layer.msg(result.msg, {icon: result.code, time: 1500}, function () {
+                    window.location.reload();
+              });
+          } else {
+              layer.msg(result.msg, {icon: result.code});
+          }
+            }
+        })
+    });
+    }
+</script>
+
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";

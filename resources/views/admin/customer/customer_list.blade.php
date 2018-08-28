@@ -52,6 +52,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="page">
+                    {{$data->links()}}
+                </div>
             </div>
         </fieldset>
 

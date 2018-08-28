@@ -30,7 +30,7 @@ class CustomerController extends Controller{
       // ->where(['add_man'=>$u_id])
   		->join('customer_level','customer.customer_level', '=', 'customer_level.level_id')
   		->join('customer_type','customer.customer_type', '=', 'customer_type.type_id')
-  		->get();
+      ->paginate(4);
   		return view('admin.customer.customer_list' , [
   			'title'=>'客户列表',
   			'data' =>$data

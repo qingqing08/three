@@ -41,7 +41,7 @@ class DocumentaryController extends Controller
  			crm_schedule.id as schedule_id,
  			crm_schedule.name as schedule_name
  			'))
- 		->get();
+ 		->paginate(4);
  		return view('admin.documentary.documentary_list',[
  			'data'=>$data,
  			'title'=>'跟单列表'

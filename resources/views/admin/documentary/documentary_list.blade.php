@@ -38,6 +38,9 @@
                         </tr>
                         @endforeach
                     </tbody>
+                    <div class="page">
+                    {{$data->links()}}
+                </div>
                 </table>
             </div>
         </fieldset>
@@ -48,7 +51,7 @@
      layui.use('layer', function(){
   var layer = layui.layer;
     $.ajaxSetup({
-            headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' }
+            headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'}
         });
         $.ajax({
             url:"documentary-delete",
