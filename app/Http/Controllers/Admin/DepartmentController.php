@@ -9,6 +9,18 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
 class DepartmentController extends Controller{
+    
+    //自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
     //部门列表
     public function department_list(){
     	$department_list = DB::table('department')->where('is_del' , 1)->paginate(5);

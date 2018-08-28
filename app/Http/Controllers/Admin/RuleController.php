@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Input;
  * @name 权限类
  */
 class RuleController extends Controller{
+
+    //自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
+
     //权限列表
     public function rule_list(){
         $list = DB::table('rule')->where('status',1)->paginate(10);

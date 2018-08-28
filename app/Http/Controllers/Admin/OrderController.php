@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\Input;
 class OrderController extends Controller
 {
 
-	/** 防非法 */
-		// public function __construct(){
-	 //        check_user();
-	 //    }
+	//自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
 
 	/** 订单新增页面 */
     public function create_order(){

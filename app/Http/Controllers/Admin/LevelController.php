@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Input;
 
 class LevelController extends Controller
 {	
+
+	//自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
+    
 	/** 客户级别添加 */
 	public function level_add(){
 		return view('admin.level.level_add',['title'=>'客户级别添加']);

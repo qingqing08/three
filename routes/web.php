@@ -114,6 +114,8 @@ Route::post('dtype-add-do' , 'Admin\DtypeController@dtype_add_do');
 Route::get('dtype-up' , 'Admin\DtypeController@dtype_up');
 //执行修改页
 Route::post('dtype-up-do' , 'Admin\DtypeController@dtype_up_do');
+//删除跟单类型
+Route::get('dtype-delete' , 'Admin\DtypeController@dtype_delete');
 
 /* ScheduleController---跟单进度类 */
 //进度列表
@@ -126,6 +128,8 @@ Route::post('schedule-add-do' , 'Admin\ScheduleController@schedule_add_do');
 Route::get('schedule-up' , 'Admin\ScheduleController@schedule_up');
 //执行修改页
 Route::post('schedule-up-do' , 'Admin\ScheduleController@schedule_up_do');
+//删除跟单进度
+Route::get('schedule-delete' , 'Admin\ScheduleController@schedule_delete');
 
 /* CtypeController   --- 合同类型*/
 //添加合同类型

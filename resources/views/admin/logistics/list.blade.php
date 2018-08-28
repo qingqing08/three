@@ -1,5 +1,5 @@
 {{--跟单类型列表--}}
-@include('layouts.header');
+@include('layouts.header')
 <body>
 <div class="x-nav">
       <span class="layui-breadcrumb">
@@ -21,8 +21,8 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加跟单进度','schedule-add')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">已显示：<span style="color:red;">{{$num}}</span> 条数据</span>
+        <button class="layui-btn" onclick="x_admin_show('添加物流','logistics-add')"><i class="layui-icon"></i>添加</button>
+        <span class="x-right" style="line-height:40px">已显示 <span style="color:red;">{{$num}}</span> 条数据</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -31,8 +31,7 @@
                 <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>ID</th>
-            <th>进度名称</th>
-            <th>加入时间</th>
+            <th>物流名称</th>
             <th>状态</th>
             <th>操作</th>
         </thead>
@@ -45,9 +44,6 @@
                 </td>
                 <td>{{$v -> id}}</td>
                 <td>{{$v -> name}}</td>
-                <td>
-                    <?php echo date('Y-m-d H:i:s',$v->c_time); ?>
-                </td>
                 <td class="td-status">
                     @if($v->status == 1)
                         <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
@@ -58,10 +54,10 @@
                     <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                         <i class="layui-icon">&#xe601;</i>
                     </a>
-                    <a title="编辑"  onclick="x_admin_up(this,{{$v -> id}})" href="javascript:;">
+                    <a title="编辑"  onclick="x_admin_up(this , {{$v -> id}})" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" onclick="member_del(this,{{$v->id}})" href="javascript:;">
+                    <a title="删除" onclick="member_del(this,'{{$v -> id}}')" href="javascript:;">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                 </td>
@@ -70,7 +66,9 @@
         </tbody>
     </table>
     <div class="page">
-       {{$list -> links()}}
+        <div>
+            {{$list -> links()}}
+        </div>
     </div>
 
 </div>
@@ -88,10 +86,12 @@
             elem: '#end' //指定元素
         });
     });
+
     /* 编辑*/
-    function x_admin_up(obj,id){
-        window.location.href = 'schedule-up?id='+ id;
-        }
+    function x_admin_up(obj , id){
+
+        window.location.href = 'logistics-up?id='+ id;
+    }
 
     /*用户-停用*/
     function member_stop(obj,id){
@@ -122,10 +122,10 @@
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
             $.ajax({
-                url:"schedule-delete",
+                url:"logistics-delete",
                 type:"get",
                 data:{
-                    schedule_id:id,
+                    'id':id,
                 },
                 async:false,
                 cache:false,
@@ -138,9 +138,11 @@
                     }
                 }
             })
-            
+
         });
     }
+
+    /*修改 - 物流*/
 
 
 

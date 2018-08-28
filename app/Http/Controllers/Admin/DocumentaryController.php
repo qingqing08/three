@@ -16,6 +16,18 @@ use Memcache;
  */
 class DocumentaryController extends Controller
 {
+  
+  //自动验证登录
+  public function __construct(){
+       $this -> middleware(function ($request, $next) {
+          // $r_url = $_SERVER['REQUEST_URI'];
+          //验证是否登录
+          check_user();
+          //验证权限
+          check_auth();
+          return $next($request);
+      });
+  }
  	//跟单展示列表
  	public function documentary_list(){
  		$user = session()->get('info');

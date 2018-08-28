@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\DB;
  * @name 角色类
  */
 class RoleController extends Controller{
+
+    //自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
+
     //角色列表
     public function role_list(){
         $list = DB::table('role')->get();
@@ -82,8 +95,8 @@ class RoleController extends Controller{
     public function set_rule(){
         $role_id = Input::get('role_id');
         $role_info = DB::table('role')->where('id' , $role_id)->first();
-        $rule_list = DB::table('rule')->where('status' , 1)->get();
-        // dd($role_id);
+        $rule_list = DB::table('rule')->where('status' , 1)->whereNotIn('parent_id' , array(0))->get();
+        // dd($rule_list);
         return view('admin.role.set_rule' , ['title'=>'设置权限' , 'info'=>$role_info , 'rule_list'=>$rule_list]);
     }
 
@@ -99,9 +112,14 @@ class RoleController extends Controller{
         $no_check = $data['no_check'];
 
         $no_check = trim($no_check , ',');
-
+        // echo $no_check;die;
         if ($no_check != '') {
-            DB::table('rule_role')->whereIn('rule_id' , $no_check)->delete();
+            $rule_role = DB::table('rule_role')->where('role_id' , $data['role_id'])->get();
+            $rule_role = json_decode($rule_role , true);
+            // dd($rule_role);
+            if (!empty($rule_role)) {
+                DB::table('rule_role')->whereIn('rule_id' , $no_check)->delete();
+            }
         }
         
         // dd(Input::post());
