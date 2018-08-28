@@ -263,3 +263,11 @@ Route::get('logistics-up' , 'Admin\LogisticsController@logistics_up');
 Route::post('logistics-up-do' , 'Admin\LogisticsController@logistics_up_do');
 //删除
 Route::get('logistics-delete' , 'Admin\LogisticsController@logistics_delete');
+
+	/** CalendarController	--个人日历 */
+//添加备忘录
+Route::get('calendar-add','Admin\CalendarController@calendar_add');
+//执行添加
+Route::post('calendar-add-do','Admin\CalendarController@calendar_add_do');
+//查询当日行程
+Route::get('calendar-list','Admin\CalendarController@calendar_list');
