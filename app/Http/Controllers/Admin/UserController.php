@@ -18,14 +18,20 @@ use Memcache;
 class UserController extends Controller{
     //自动验证登录
     public function __construct(){
-        // check_user();
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
     }
 
     //员工/业务员/管理员列表
     public function user_list(){
-        check_user();
         $user_list = DB::table('staff')->where('is_del' , 1)->paginate(5);
-        dd($user_list);
+        // dd($user_list);
         foreach ($user_list as $user) {
             $staff_role = DB::table('staff_role')->where('staff_id' , $user->id)->first();
             // dd($staff_role);
@@ -47,14 +53,12 @@ class UserController extends Controller{
     }
     //添加员工/业务员/管理员页面
     public function user_add(){
-        check_user();
         $role_list = DB::table('role')->get();
         return view('admin.user.add' , ['title'=>'添加管理员' , 'role_list'=>$role_list]);
     }
 
     //执行添加员工/业务员/管理员操作
     public function user_add_do(){
-        check_user();
         $data = Input::post('data');
         unset($data['_token']);
         unset($data['repass']);
@@ -94,7 +98,6 @@ class UserController extends Controller{
 
     //修改员工/业务员/管理员页面
     public function user_modify(){
-        check_user();
         $staff_id = Input::get('staff_id');
         $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
         return view('admin.user.modify' , ['title'=>'员工修改' , 'staff_info'=>$staff_info]);
@@ -102,7 +105,6 @@ class UserController extends Controller{
 
     //执行修改员工/业务员/管理员操作
     public function user_modify_do(){
-        check_user();
         // dd(Input::post());
         $data = Input::post('data');
         unset($data['_token']);
@@ -121,7 +123,6 @@ class UserController extends Controller{
 
     //删除员工/业务员/管理员操作
     public function user_delete(){
-        check_user();
         // dd(Input::get());
         $staff_id = Input::get('staff_id');
 
@@ -135,7 +136,6 @@ class UserController extends Controller{
 
     //设置角色页面
     public function set_role(){
-        check_user();
         // dd(Input::get());
         $staff_id = Input::get('staff_id');
         $staff_info = DB::table('staff')->where('id' , $staff_id)->first();
@@ -147,7 +147,6 @@ class UserController extends Controller{
 
     //执行设置角色操作
     public function set_role_do(){
-        check_user();
         $data = Input::post();
         $data['role_id'] = $data['role'];
         unset($data['role']);

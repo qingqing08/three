@@ -43,18 +43,21 @@
         <fieldset class="layui-elem-field">
             <legend>内部公文</legend>
             <div class="layui-field-box">
-                <table class="layui-table" lay-skin="line">
+                <table class="layui-table">
                     <tbody>
+                        @foreach($document_list as $document)
                         <tr>
                             <td >
-                                <a class="x-a" href="/" target="_blank">新版 2.0上线了</a>
+                                <span>{{$document->content}}</span>
                             </td>
-                        </tr>
-                        <tr>
                             <td >
-                                <a class="x-a" href="/" target="_blank">欢迎交流</a>
+                                <span>{{$document->staff_id}}</span>
+                            </td>
+                            <td >
+                                <span>{{$document->c_time}}</span>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

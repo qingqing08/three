@@ -8,7 +8,25 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * @date 2018/8/21
+ * @user Peng
+ * @name 内部公文类
+ */
 class DocumentController extends Controller{
+
+    //自动验证登录
+    public function __construct(){
+         $this -> middleware(function ($request, $next) {
+            // $r_url = $_SERVER['REQUEST_URI'];
+            //验证是否登录
+            check_user();
+            //验证权限
+            check_auth();
+            return $next($request);
+        });
+    }
+
     //内部公文列表
     public function document_list(){
     	$document_list = DB::table('document')->paginate(5);

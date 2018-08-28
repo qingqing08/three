@@ -21,7 +21,7 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加类型','schedule-add')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加跟单进度','schedule-add')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">已显示：<span style="color:red;">{{$num}}</span> 条数据</span>
     </xblock>
     <table class="layui-table">
@@ -61,7 +61,7 @@
                     <a title="编辑"  onclick="x_admin_up(this,{{$v -> id}})" href="javascript:;">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
-                    <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                    <a title="删除" onclick="member_del(this,{{$v->id}})" href="javascript:;">
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                 </td>
@@ -121,8 +121,24 @@
     function member_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                url:"schedule-delete",
+                type:"get",
+                data:{
+                    schedule_id:id,
+                },
+                async:false,
+                cache:false,
+                success:function (data){
+                    if (data.code == 1) {
+                        $(obj).parents("tr").remove();
+                        layer.msg(data.msg,{icon:1,time:1000});
+                    } else {
+                        layer.msg(data.msg,{icon:1,time:1000});
+                    }
+                }
+            })
+            
         });
     }
 

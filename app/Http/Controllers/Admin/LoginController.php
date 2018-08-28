@@ -27,7 +27,16 @@ class LoginController extends Controller{
     	// add_log($action);
 
         $list = DB::table('statistics') -> where(['status' => 1]) -> get();
-        return view('admin.welcome' , ['staff_info'=>Session::get('info')]) -> with('list' , $list);
+        $document_list = DB::table('document')->where('is_del' , 1)->limit(2)->get();
+
+        if ($document_list != null) {
+            foreach ($document_list as $key => $value) {
+                $user_info = DB::table('staff')->where('id' , $value->staff_id)->first();
+                $value->staff_id = $user_info->name;
+                $value->c_time = date('Y-m-d H:i:s');
+            }
+        }
+        return view('admin.welcome' , ['document_list'=>$document_list , 'staff_info'=>Session::get('info')]) -> with('list' , $list);
     }
 
     //登录页面
