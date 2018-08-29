@@ -275,3 +275,7 @@ Route::get('calendar-add','Admin\CalendarController@calendar_add');
 Route::post('calendar-add-do','Admin\CalendarController@calendar_add_do');
 //查询当日行程
 Route::get('calendar-list','Admin\CalendarController@calendar_list');
+
+/** OperationrecordController  操作记录 */
+//展示操作记录
+Route::get('record-list','Admin\OperationrecordController@record_list');
