@@ -90,10 +90,11 @@ class DocumentaryController extends Controller
   			'describe'=>$post['describe'],
   			'is_del'=>0
   		]);
-  		// var_dump($res);exit;s
+      $data = DB::table('customer')->where('id',$post['customer_id'])->first();
+      $name = $data->customer_name;
   		if($res){
-  			// $action = "添加一条客户名为("$post['customer_name']")的数据";
-     //        add_log($action);
+  			$action = "添加一条客户名为(".$name.")的跟单";
+            add_log($action);
   			return ['msg'=>'添加成功','code'=>1];
   		}else{
   			return ['msg'=>'添加失败','code'=>2];
@@ -156,8 +157,12 @@ class DocumentaryController extends Controller
   			'remind'=>$post['remind'],
   			'describe'=>$post['describe']
   		]);
+      $data = DB::table('customer')->where('id',$post['customer_id'])->first();
+      $name = $data->customer_name;
   		// print_r($res);exit;
   		if($res){
+        $action = "修改一条客户名为(".$name.")的跟单";
+            add_log($action);
   			return ['msg'=>'修改成功','code'=>1];
   		}else{
   			return ['msg'=>'您未修改任何数据','code'=>2];
@@ -165,14 +170,20 @@ class DocumentaryController extends Controller
 	}
 	//shanch
 	public function documentary_delete(){
-		$id=Input::post('id');
+		$id=Input::post('id');      
+    $data = DB::table('documentary')->where('id',$id)->first();
+    $cus=$data->customer_id;
+    $info = DB::table('customer')->where('id',$cus)->first();
+    $name = $info->customer_name;
+
 		$dele = DB::table('documentary')
 		->where(['id'=>$id])
   		->update([
   			'is_del'=>1
   		]);
-
 	 if($dele){
+    $action = "删除了一条用户名为(".$name.")的跟单";
+            add_log($action);
         return (['msg'=>'删除成功','code'=>1]);
       }else{
       return (['msg'=>'删除失败','code'=>2]);

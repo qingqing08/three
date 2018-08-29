@@ -139,8 +139,9 @@ class CustomerController extends Controller{
 //删除客户
   	public function customer_delete(){
 	  $id=Input::post('id');
-    $allda=DB::table('customer')->where('id',$id)->get();
-    $newa= json_decode($allda,true);
+    $allda=DB::table('customer')->where('id',$id)->first();
+    // print_r($allda);exit;
+    $name=$allda->customer_name;
     $order = DB::table('order')
     ->where(['c_id'=>$id])
     ->get();
@@ -153,6 +154,8 @@ class CustomerController extends Controller{
         'is_del'=>1
       ]);
     if($dele){
+      $action = "删除了一条客户名为(".$name.")的数据";
+            add_log($action);
         return (['msg'=>'删除成功','code'=>1]);
       }      
     }else{

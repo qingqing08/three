@@ -57,6 +57,8 @@ class DepartmentController extends Controller{
             'c_time'=>$time
         ]);
         if($res){
+            $action = "添加了一个部门为(".$name.")的数据";
+            add_log($action);
             return ['msg'=>'添加成功','code'=>1];
         }else{
             return ['msg'=>'添加失败','code'=>2];
@@ -81,13 +83,16 @@ class DepartmentController extends Controller{
         $post=input::post(); 
         $id=$post['id'];
         $time=time();
-        $res = DB::table('department')
+        $data = DB::table('department')->where(['id'=>$id])->first();
+        $res  = DB::table('department')
         ->where(['id'=>$id])
         ->update([
             'department_name'=>$post['department_name'],
             'c_time'=>$time
         ]);
         if($res){
+             $action = "将部门(".$data->department_name.")修改为(".$post['department_name'].")";
+            add_log($action);
             return ['msg'=>'修改成功','code'=>1];
         }else{
             return ['msg'=>'您未修改任何数据','code'=>2];
@@ -96,12 +101,15 @@ class DepartmentController extends Controller{
     //删除
     public function department_delete(){
         $id=Input::post('id');
+        $data = DB::table('department')->where(['id'=>$id])->first();
         $dele = DB::table('department')
         ->where(['id'=>$id])
         ->update([
             'is_del'=>0
         ]);
         if($dele){
+            $action = "删除了一个部门为(".$data->department_name.")的数据";
+            add_log($action);
             return (['msg'=>'删除成功','code'=>1]);
         }else{
              return (['msg'=>'删除失败','code'=>2]);
