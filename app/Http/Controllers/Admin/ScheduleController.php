@@ -44,11 +44,21 @@ class ScheduleController extends Controller
 
             $res = DB::table('schedule') -> insert(['name' => $name , 'status' => $status , 'c_time' => $c_time]);
             if($res){
-                $action = "增加了一条进度类型为(". $name .")的数据";
+
+                $action = "增加了一条跟单进度类型为(". $name .")的数据";
+
                 add_log($action);
+
                 return(['msg' => '添加成功' , 'code' => 1]);
+
             }else{
+
+                $action = "增加了一条跟单进度类型为(". $name .")的数据失败";
+
+                add_log($action);
+
                 return(['msg' => '添加失败' , 'code' => 2]);
+
             }
         }
 
@@ -90,27 +100,46 @@ class ScheduleController extends Controller
             $res = DB::table('schedule') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
 
             if($res){
-                $action = "编辑了一条进度类型为(". $name .")的数据";
+
+                $action = "编辑了一条跟单进度类型为(". $name .")的数据";
+
                 add_log($action);
+
                 return (['msg' => '编辑成功' , 'code' => 1]);
+
             }else{
+
+                $action = "编辑了一条跟单进度类型为(". $name .")的数据失败";
+
+                add_log($action);
+
                 return (['msg' => '编辑失败','code' => 2]);
+
             }
         }
     }
 
     //删除跟单进度
     public function schedule_delete(){
+
         $schedule_id = Input::get('schedule_id');
 
         $result = DB::table('schedule')->where('id' , $schedule_id)->update(['is_del'=>0]);
+
         if ($result) {
+
             $schedule_info = DB::table('schedule')->where('id' , $schedule_id)->first();
+
             $action = "删除一条跟单进度类型为(". $schedule_info->name .")的数据";
+
             add_log($action);
+
             return ['msg'=>'删除成功' , 'code'=>1];
+
         } else {
+
             return ['msg'=>'删除失败' , 'code'=>2];
+
         }
     }
 

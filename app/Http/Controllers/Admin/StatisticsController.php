@@ -62,20 +62,50 @@ class StatisticsController extends Controller
             $res = DB::table('statistics')->insert($arr);
 
             if ($res) {
+
+                $action = "增加了一条统计为(". $arr['name'] .")的数据";
+
+                add_log($action);
+
                 return ['msg' => '增加成功', 'code' => 1];
+
             } else {
+
+                $action = "增加了一条统计为(". $arr['name'] .")的数据失败";
+
+                add_log($action);
+
                 return ['msg' => '增加失败', 'code' => 1];
+
             }
         }
     }
 
     /** 统计项删除 */
     public function statistics_delete(){
+
         $id=input::get('id');
-        $res=DB::table('statistics')->where('id',$id)->update(['is_del'=>0]);
+
+        $res=DB::table('statistics') -> where('id',$id) -> update(['is_del'=>0]);
+
         if ($res) {
+
+            $dtype_info = DB::table('statistics') -> where('id' , $id) -> first();
+
+            $action = "删除了一条统计为(".$dtype_info->name.")的数据";
+
+            add_log($action);
+
             return ['msg'=>'删除成功','code'=>1];
+
         }else{
+
+            $dtype_info = DB::table('statistics') -> where('id' , $id) -> first();
+
+            $action = "删除了一条统计为(".$dtype_info->name.")的数据失败";
+
+            add_log($action);
+
             return ['msg'=>'删除失败','code'=>0];
         }
     }
