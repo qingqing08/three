@@ -1,7 +1,5 @@
 @include('layouts.header')
 <form class="layui-form" action="">
-
-
 	<div class="layui-form-item" >
     <input type="hidden" name="id" value="{{@$department->id}}" >
 	    <label class="layui-form-label">部门名称</label>

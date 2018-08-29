@@ -15,31 +15,15 @@ use Memcache;
  * @name 客户类
  */
 class CustomerController extends Controller{
-  
-    //自动验证登录
-    public function __construct(){
-         $this -> middleware(function ($request, $next) {
-            // $r_url = $_SERVER['REQUEST_URI'];
-            //验证是否登录
-            check_user();
-            //验证权限
-            check_auth();
-            return $next($request);
-        });
-    }
 //客户列表展示
   	public function customer_list(){
 
   	//查询用户表中的用户数据
-      // $user = session()->get('info');
-      // $u_id=$user->id;
-      // $share = DB::table('customer_share')
-      // ->where(['staff_id'=>$u_id])
-      // ->get();
-      // $sharearr = json_decode($share,true);
+      $user = session()->get('info');
+      $u_id=$user->id;
+ 
       $data = DB::table('customer')
-      ->where('customer.is_del',0)
-      // ->where(['add_man'=>$u_id])
+      ->where(['customer.is_del'=>0,'customer.add_man'=>$u_id])
   		->join('customer_level','customer.customer_level', '=', 'customer_level.level_id')
   		->join('customer_type','customer.customer_type', '=', 'customer_type.type_id')
       ->paginate(4);
