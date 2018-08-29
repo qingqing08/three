@@ -50,6 +50,8 @@ class RoleController extends Controller{
         $result = DB::table('role')->insert($data);
         
         if($result){
+            $action = "添加了一条角色名为(".$data['role_name'].")的数据";
+            add_log($action);
             return ['msg'=>'添加成功','code'=>1];
         } else {
             return ['msg'=>'添加失败','code'=>2];
@@ -73,12 +75,16 @@ class RoleController extends Controller{
             'role_name'=>$data['role_name'],
         ];
 
+        $role_info = DB::table('role')->where('id' , $role_id)->first();
+
         if (empty($role_id)) {
             return ['msg'=>'修改失败' , 'code'=>2];
         }
         $result = DB::table('role')->where('id' , $role_id)->update($arr);
 
         if ($result) {
+            $action = "将角色名为(".$role_info->role_name.")修改为(".$data['role_name'].")";
+            add_log($action);
             return ['msg'=>'修改成功' , 'code'=>1];
         } else {
             return ['msg'=>'修改失败' , 'code'=>2];
@@ -88,6 +94,8 @@ class RoleController extends Controller{
 
     //删除角色
     public function role_delete(){
+        // $action = "删除了一条角色名为(".$data['role_name'].")的数据";
+        // add_log($action);
         echo "删除角色";
     }
 
@@ -129,9 +137,15 @@ class RoleController extends Controller{
                 'rule_id'=>$check_rule[$i],
             ];
             $res = DB::table('rule_role')->insert($arr);
+            $rule_info = DB::table('rule')->where('id' , $check_rule[$i])->first();
+            $rule_name .= $rule_info->rule_name."、";
         }
 
         if ($res) {
+            $rule_name = trim($rule_name , '、');
+            $role_info = DB::table('role')->where('id' , $data['role_id'])->first();
+            $action = "给角色名为(".$role_info['role_name'].")修改权限为(".$rule_name.")";
+            add_log($action);
             return ['msg'=>'设置成功' , 'code'=>1];
         } else {
             return ['msg'=>'设置失败' , 'code'=>2];

@@ -49,6 +49,8 @@ class ProductController extends Controller{
 
     	$result = DB::table('product')->insert($data);
     	if ($result) {
+            $action = "添加了一条产品名为(".$data['product_name'].")的数据";
+            add_log($action);
     		return ['msg'=>'添加成功' , 'code'=>1];
     	} else {
     		return ['msg'=>'添加失败' , 'code'=>2];
@@ -71,10 +73,12 @@ class ProductController extends Controller{
     	unset($data['_token']);
     	$product_id = $data['product_id'];
     	unset($data['product_id']);
-
+        $product_info = DB::table('product')->where('id' , $product_id)->first();
     	// dd($data);
     	$result = DB::table('product')->where('id' , $product_id)->update($data);
     	if ($result) {
+            $action = "将产品名为(".$product_info->product_name.")修改为(".$data['product_name'].")";
+            add_log($action);
     		return ['msg'=>'修改成功' , 'code'=>1];
     	} else {
     		return ['msg'=>'修改失败' , 'code'=>2];
@@ -84,9 +88,11 @@ class ProductController extends Controller{
     //删除产品
     public function product_delete(){
     	$product_id = Input::get('product_id');
-
+        $product_info = DB::table('product')->where('id' , $product_id)->first();
     	$result = DB::table('product')->where('id' , $product_id)->delete();
     	if ($result) {
+            $action = "删除一条产品名为(".$product_info->product_name.")的数据";
+            add_log($action);
     		return ['msg'=>'删除成功' , 'code'=>1];
     	} else {
     		return ['msg'=>'删除失败' , 'code'=>2];
