@@ -23,7 +23,7 @@ class OperationrecordController extends Controller
 
     /** 操作记录展示 */
     public function record_list(){
-		$record=DB::table('operation_record')->paginate(1);
+		$record=DB::table('operation_record')->paginate(10);
 		$count = DB::table('operation_record')->count();
     	return view('admin.record.record_list',['title'=>'操作记录展示','info'=>$record,'count'=>$count]);
     }
