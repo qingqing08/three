@@ -51,10 +51,19 @@ class DtypeController extends Controller
             $res = DB::table('d_type') -> insert($arr);
 
             if($res){
+
                 $action = "增加了一条跟单类型为(". $name .")的数据";
+
                 add_log($action);
+
                 return (['msg' => '添加成功' , 'code' => 1]);
+
             }else{
+
+                $action = "增加了一条跟单类型为(". $name .")的数据失败";
+
+                add_log($action);
+
                 return (['msg' => '添加失败' , 'code' => 2]);
             }
         }
@@ -101,26 +110,49 @@ class DtypeController extends Controller
             $res = DB::table('d_type') -> where('id',$id) -> update(['name' => $name , 'status' => $status]);
 
             if($res){
+
                 $action = "编辑了一条跟单类型为(". $name .")的数据";
+
                 add_log($action);
+
                 return (['msg' => '编辑成功' , 'code' => 1]);
+
             }else{
+                $action = "编辑了一条跟单类型为(". $name .")的数据失败";
+
+                add_log($action);
+
                 return (['msg' => '编辑失败','code' => 2]);
+
             }
         }
     }
 
     //删除跟单类型
     public function dtype_delete(){
+
         $dtype_id = Input::get('dtype_id');
 
         $result = DB::table('d_type')->where('id' , $dtype_id)->update(['is_del'=>0]);
+
         if ($result) {
+
             $dtype_info = DB::table('d_type')->where('id' , $dtype_id)->first();
+
             $action = "删除了一条跟单类型为(".$dtype_info->name.")的数据";
+
             add_log($action);
+
             return ['msg'=>'删除成功' , 'code'=>1];
+
         } else {
+
+            $dtype_info = DB::table('d_type')->where('id' , $dtype_id)->first();
+
+            $action = "删除了一条跟单类型为(".$dtype_info->name.")的数据失败";
+
+            add_log($action);
+
             return ['msg'=>'删除失败' , 'code'=>2];
         }
     }

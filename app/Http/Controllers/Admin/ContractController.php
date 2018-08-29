@@ -61,10 +61,16 @@ class ContractController extends Controller
         if($res){
 
             $action = "增加了一条合同";
+
             add_log($action);
+
             return (['msg' => '添加成功' , 'code' => 1]);
 
         }else{
+
+            $action = "增加了一条合同失败";
+
+            add_log($action);
 
             return (['msg' => '添加失败' , 'code' => 2]);
         }
@@ -92,11 +98,21 @@ class ContractController extends Controller
         $res = DB::table('contract') -> where(['id' => $arr['id']]) -> update($arr);
 
         if($res){
+
             $action = "编辑了一条合同";
+
             add_log($action);
+
             return (['msg' => '编辑成功' , 'code' => 1]);
+
         }else{
+
+            $action = "编辑了一条合同失败";
+
+            add_log($action);
+
             return (['msg' => '编辑失败' , 'code' => 2]);
+
         }
     }
 }

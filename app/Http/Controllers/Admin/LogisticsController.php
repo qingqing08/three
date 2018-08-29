@@ -21,7 +21,6 @@ class LogisticsController extends Controller
             return $next($request);
         });
     }
-
     
     //物流列表
     public function logistics_list(){
@@ -65,9 +64,21 @@ class LogisticsController extends Controller
             $res = DB::table('logistics')->insert(['name' => $name, 'status' => $status, 'c_time' => $c_time]);
 
             if ($res) {
+
+                $action = "添加一条物流信息为(". $name .")的数据";
+
+                add_log($action);
+
                 return (['msg' => '增加成功', 'code' => 1]);
+
             } else {
+
+                $action = "添加一条物流信息为(". $name .")的数据";
+
+                add_log($action);
+
                 return (['msg' => '增加失败', 'code' => 2]);
+
             }
         }
     }
@@ -107,9 +118,17 @@ class LogisticsController extends Controller
 
             if($res){
 
+                $action = "修改一条物流信息为(". $arr['name'] .")的数据";
+
+                add_log($action);
+
                 return (['msg' => '修改成功' , 'code' => 1]);
 
             }else{
+
+                $action = "修改一条物流信息为(". $arr['name'] .")的数据失败";
+
+                add_log($action);
 
                 return (['msg' => '修改失败' , 'code' => 2]);
             }
@@ -127,13 +146,19 @@ class LogisticsController extends Controller
 
             $info = DB::table('logistics') -> where('id' , $id) -> first();
 
-            $action = "删除一条跟单进度类型为(". $info->name .")的数据";
+            $action = "删除一条物流信息为(". $info->name .")的数据";
 
             add_log($action);
 
             return (['msg' => '删除成功' , 'code' => 1]);
 
         }else{
+
+            $info = DB::table('logistics') -> where('id' , $id) -> first();
+
+            $action = "删除一条物流信息为(". $info->name .")的数据失败！";
+
+            add_log($action);
 
             return (['msg' => '删除失败' , 'code' => 2]);
 
